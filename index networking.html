@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>The Hub — Directorio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<style>
+  :root {
+    --bg: #f7f4ef;
+    --bg2: #efeae1;
+    --surface: #ffffff;
+    --border: #ddd8ce;
+    --border2: #ccc6ba;
+    --accent: #2b4a3f;
+    --accent2: #3d6b5c;
+    --gold: #a07840;
+    --gold2: #c9a060;
+    --text: #1a1814;
+    --muted: #8a8278;
+    --danger: #8b3a3a;
+    --tag-bg: rgba(43,74,63,0.08);
+    --shadow: 0 2px 16px rgba(0,0,0,0.07);
+    --shadow-lg: 0 8px 40px rgba(0,0,0,0.12);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── GRAIN OVERLAY ── */
+  body::before {
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:999;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    opacity: 0.4;
+  }
+
+  /* ── LOGIN SCREEN ── */
+  #loginScreen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem;
+    text-align: center;
+    background: var(--bg);
+    position: relative;
+  }
+
+  .login-deco {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--gold), var(--accent));
+  }
+
+  .login-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 10vw, 5.5rem);
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .login-sub {
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    font-weight: 500;
+  }
+
+  .login-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    max-width: 380px;
+    width: 100%;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .login-card h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+
+  .login-card p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  #googleBtn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 14px 20px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+  #googleBtn:hover { background: var(--accent2); transform: translateY(-1px); }
+  #googleBtn:active { transform: translateY(0); }
+
+  /* ── APP SCREEN ── */
+  #appScreen { display: none; }
+
+  /* ── HEADER ── */
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(247,244,239,0.94);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 1.5rem;
+    height: 62px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: -0.01em;
+  }
+
+  .header-right { display:flex; align-items:center; gap:10px; }
+
+  .user-chip {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    padding: 5px 12px 5px 5px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .user-chip:hover { border-color: var(--border2); }
+
+  .user-avatar {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .user-avatar img { width:100%; height:100%; object-fit:cover; }
+  .user-name { font-size: 0.82rem; font-weight: 500; color: var(--text); max-width: 100px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+  .logout-btn {
+    background: none; border: none; cursor: pointer;
+    color: var(--muted); font-size: 0.78rem;
+    padding: 2px 4px;
+    font-family: 'Outfit', sans-serif;
+    transition: color 0.2s;
+  }
+  .logout-btn:hover { color: var(--danger); }
+
+  /* ── TABS ── */
+  .tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    padding: 0 1.5rem;
+    background: var(--bg);
+    gap: 0;
+  }
+  .tab {
+    padding: 14px 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    display: flex; align-items: center; gap: 6px;
+    margin-bottom: -1px;
+  }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab:hover:not(.active) { color: var(--text); }
+
+  /* ── SEARCH ── */
+  .search-bar {
+    padding: 1.2rem 1.5rem 0.8rem;
+    position: relative;
+  }
+  .search-bar svg { position:absolute; left:calc(1.5rem + 13px); top:50%; transform:translateY(-30%); color:var(--muted); pointer-events:none; }
+  .search-bar input {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    padding: 11px 14px 11px 40px;
+    border-radius: 12px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .search-bar input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(43,74,63,0.1); }
+  .search-bar input::placeholder { color: var(--muted); }
+
+  /* ── MEMBER COUNT ── */
+  .list-meta {
+    padding: 0 1.5rem 0.8rem;
+    font-size: 0.78rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+  .list-meta b { color: var(--accent); }
+
+  /* ── CARDS ── */
+  .cards { padding: 0 1.5rem 5rem; display: flex; flex-direction: column; gap: 12px; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    animation: fadeUp 0.35s ease both;
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+  .card:hover { border-color: var(--border2); box-shadow: 0 4px 24px rgba(0,0,0,0.1); }
+  .card.is-me { border-color: var(--accent); border-width: 1.5px; }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(12px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+
+  .card-top {
+    padding: 1.2rem 1.2rem 0.9rem;
+    display: flex; align-items: flex-start; gap: 12px;
+  }
+
+  .avatar {
+    width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0;
+    background: var(--accent);
+    color: #fff;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    border: 2px solid var(--border);
+  }
+  .avatar img { width:100%; height:100%; object-fit:cover; }
+
+  .card-info { flex:1; min-width:0; }
+  .card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem; font-weight: 600;
+    color: var(--text);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .me-tag {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 20px;
+    margin-left: 7px;
+    vertical-align: middle;
+  }
+  .card-company { font-size: 0.8rem; color: var(--gold); font-weight: 500; margin-top: 2px; }
+  .card-age { font-size: 0.78rem; color: var(--muted); margin-top: 1px; }
+
+  .edit-btn {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 6px 12px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--accent);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
+    align-self: flex-start;
+  }
+  .edit-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  /* ── ACCORDIONS ── */
+  .accordions { border-top: 1px solid var(--border); }
+  .acc-item { border-bottom: 1px solid var(--border); }
+  .acc-item:last-child { border-bottom: none; }
+
+  .acc-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 1.2rem;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+  }
+  .acc-header:hover { background: var(--bg); }
+
+  .acc-label {
+    font-size: 0.74rem; font-weight: 600;
+    letter-spacing: 0.09em; text-transform: uppercase;
+    color: var(--muted);
+    display: flex; align-items: center; gap: 7px;
+  }
+  .dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+  .dot-tray  { background: #4a7a6a; }
+  .dot-hobby { background: #7a5a9a; }
+  .dot-desaf { background: #9a4a4a; }
+
+  .acc-arrow { color: var(--muted); transition: transform 0.25s; flex-shrink:0; }
+  .acc-arrow.open { transform: rotate(180deg); }
+
+  .acc-body {
+    display: none;
+    padding: 0 1.2rem 1rem;
+    font-size: 0.86rem;
+    line-height: 1.7;
+    color: #5a554e;
+  }
+  .acc-body.open { display: block; }
+
+  .help-pill {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: var(--tag-bg);
+    border: 1px solid rgba(43,74,63,0.2);
+    color: var(--accent);
+    font-size: 0.75rem; font-weight: 500;
+    padding: 4px 11px;
+    border-radius: 20px;
+    margin-top: 9px;
+  }
+
+  /* ── EMPTY STATE ── */
+  .empty {
+    text-align: center; padding: 4rem 1.5rem; color: var(--muted);
+  }
+  .empty-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .empty h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--text); margin-bottom: 0.4rem; }
+  .empty p { font-size: 0.87rem; line-height: 1.6; }
+
+  /* ── MY PROFILE TAB ── */
+  #profileTab { display: none; padding: 1.5rem; }
+
+  .profile-header {
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 1.8rem;
+  }
+  .profile-avatar {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: var(--accent); color: #fff;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; border: 3px solid var(--border);
+    flex-shrink: 0;
+  }
+  .profile-avatar img { width:100%; height:100%; object-fit:cover; }
+  .profile-name { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; }
+  .profile-email { font-size: 0.82rem; color: var(--muted); margin-top: 2px; }
+
+  /* ── FORM ── */
+  .form-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.4rem;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow);
+  }
+  .form-section-title {
+    font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 7px;
+  }
+
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .field { display: flex; flex-direction: column; gap: 5px; }
+  .field label { font-size: 0.76rem; font-weight: 500; color: var(--muted); letter-spacing: 0.04em; }
+
+  .field input, .field textarea {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.88rem;
+    padding: 10px 12px;
+    border-radius: 10px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    resize: vertical;
+  }
+  .field input:focus, .field textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(43,74,63,0.1);
+  }
+  .field input::placeholder, .field textarea::placeholder { color: #bbb5aa; }
+
+  .save-btn {
+    width: 100%;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 14px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    margin-top: 4px;
+    letter-spacing: 0.02em;
+  }
+  .save-btn:hover { background: var(--accent2); transform: translateY(-1px); }
+  .save-btn:active { transform: translateY(0); }
+  .save-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+  .toast {
+    position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: var(--accent); color: #fff;
+    padding: 11px 22px; border-radius: 30px;
+    font-size: 0.86rem; font-weight: 500;
+    box-shadow: var(--shadow-lg);
+    opacity: 0; transition: all 0.3s; z-index: 500;
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ── LOADING ── */
+  .loading {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 4rem 1.5rem; gap: 14px; color: var(--muted);
+  }
+  .spinner {
+    width: 28px; height: 28px;
+    border: 2.5px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── BOTTOM NAV (mobile) ── */
+  .bottom-nav {
+    display: none;
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 90;
+    background: rgba(247,244,239,0.96);
+    backdrop-filter: blur(16px);
+    border-top: 1px solid var(--border);
+    padding: 8px 0 max(8px, env(safe-area-inset-bottom));
+    justify-content: space-around;
+  }
+  .nav-item {
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    padding: 4px 20px;
+    cursor: pointer;
+    color: var(--muted);
+    font-size: 0.68rem; font-weight: 500;
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+  }
+  .nav-item.active { color: var(--accent); }
+  .nav-item svg { transition: transform 0.2s; }
+  .nav-item.active svg { transform: scale(1.1); }
+
+  @media (max-width: 640px) {
+    .bottom-nav { display: flex; }
+    .tabs { display: none; }
+    header { padding: 0 1rem; }
+    .cards { padding: 0 1rem 5rem; }
+    .search-bar { padding: 1rem 1rem 0.6rem; }
+    .list-meta { padding: 0 1rem 0.6rem; }
+    #profileTab { padding: 1rem 1rem 5rem; }
+    .field-row { grid-template-columns: 1fr; }
+  }
+
+  @media (min-width: 641px) {
+    .cards { max-width: 720px; margin: 0 auto; }
+    .search-bar, .list-meta { max-width: 720px; margin: 0 auto; }
+    #profileTab { max-width: 640px; margin: 0 auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-deco"></div>
+  <div class="login-logo">The Hub</div>
+  <div class="login-sub">Directorio de comunidad</div>
+  <div class="login-card">
+    <h2>Bienvenido</h2>
+    <p>Ingresá con tu cuenta de Google para acceder al directorio de la comunidad y gestionar tu perfil.</p>
+    <button id="googleBtn" onclick="handleGoogleLogin()">
+      <svg width="18" height="18" viewBox="0 0 48 48">
+        <path fill="#fff" d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"/>
+      </svg>
+      Continuar con Google
+    </button>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="appScreen">
+  <header>
+    <div class="logo">The Hub</div>
+    <div class="header-right">
+      <div class="user-chip" id="userChip">
+        <div class="user-avatar" id="headerAvatar"></div>
+        <div class="user-name" id="headerName"></div>
+      </div>
+      <button class="logout-btn" onclick="logout()">Salir</button>
+    </div>
+  </header>
+
+  <!-- desktop tabs -->
+  <div class="tabs">
+    <div class="tab active" id="tabDir" onclick="showTab('directory')">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Directorio
+    </div>
+    <div class="tab" id="tabProf" onclick="showTab('profile')">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Mi Perfil
+    </div>
+  </div>
+
+  <!-- DIRECTORY -->
+  <div id="directoryTab">
+    <div class="search-bar">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="searchInput" placeholder="Buscar por nombre o empresa…" oninput="renderDirectory()">
+    </div>
+    <div class="list-meta" id="listMeta"></div>
+    <div class="cards" id="cardsContainer">
+      <div class="loading"><div class="spinner"></div><span>Cargando directorio…</span></div>
+    </div>
+  </div>
+
+  <!-- PROFILE -->
+  <div id="profileTab">
+    <div class="profile-header">
+      <div class="profile-avatar" id="profileAvatar"></div>
+      <div>
+        <div class="profile-name" id="profileName"></div>
+        <div class="profile-email" id="profileEmail"></div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="form-section-title">
+        <span class="dot dot-tray"></span> Datos básicos
+      </div>
+      <div class="field-row" style="margin-bottom:12px">
+        <div class="field"><label>Nombre</label><input id="p_nombre" type="text" placeholder="Tu nombre"></div>
+        <div class="field"><label>Apellido</label><input id="p_apellido" type="text" placeholder="Tu apellido"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Empresa</label><input id="p_empresa" type="text" placeholder="Donde trabajás"></div>
+        <div class="field"><label>Edad</label><input id="p_edad" type="text" placeholder="Tu edad"></div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="form-section-title"><span class="dot dot-tray"></span> Trayectoria profesional</div>
+      <div class="field"><textarea id="p_trayectoria" rows="4" placeholder="Contá brevemente tu recorrido profesional…"></textarea></div>
+    </div>
+
+    <div class="form-section">
+      <div class="form-section-title"><span class="dot dot-hobby"></span> Hobbies & datos curiosos</div>
+      <div class="field"><textarea id="p_hobbies" rows="3" placeholder="¿Qué hacés cuando no trabajás? ¿Algo que pocos saben de vos?"></textarea></div>
+    </div>
+
+    <div class="form-section">
+      <div class="form-section-title"><span class="dot dot-desaf"></span> Desafío actual & ayuda buscada</div>
+      <div class="field" style="margin-bottom:12px"><textarea id="p_desafio" rows="3" placeholder="¿Cuál es tu mayor desafío hoy en tu carrera o empresa?"></textarea></div>
+      <div class="field"><textarea id="p_ayuda" rows="2" placeholder="¿Qué tipo de apoyo, contacto o consejo te sería útil?"></textarea></div>
+    </div>
+
+    <button class="save-btn" id="saveBtn" onclick="saveProfile()">Guardar perfil</button>
+  </div>
+
+  <!-- BOTTOM NAV (mobile) -->
+  <nav class="bottom-nav">
+    <div class="nav-item active" id="navDir" onclick="showTab('directory')">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Directorio
+    </div>
+    <div class="nav-item" id="navProf" onclick="showTab('profile')">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Mi Perfil
+    </div>
+  </nav>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── CONFIG ──
+const CLIENT_ID = '236114642399-6vuhoqt6n519ltuih9g0f6rjsnfqhgga.apps.googleusercontent.com';
+const SHEET_ID  = '143ebkKrifNSPoSbp8s3yI4lT-5YriJSoqSu0nRrHVo0';
+const SHEET_NAME = 'Sheet1';
+
+// ── STATE ──
+let currentUser = null;   // { name, email, picture, google_id }
+let accessToken = null;
+let members = [];
+let myRowIndex = -1;      // 1-based row in sheet (header=1)
+
+// ── GOOGLE LOGIN ──
+function handleGoogleLogin() {
+  const client = google.accounts.oauth2.initTokenClient({
+    client_id: CLIENT_ID,
+    scope: 'https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
+    callback: async (response) => {
+      if (response.error) { alert('Error al autenticar: ' + response.error); return; }
+      accessToken = response.access_token;
+      await fetchUserInfo();
+      await bootApp();
+    }
+  });
+  client.requestAccessToken();
+}
+
+async function fetchUserInfo() {
+  const res = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+    headers: { Authorization: `Bearer ${accessToken}` }
+  });
+  const data = await res.json();
+  currentUser = {
+    name: data.name || '',
+    email: data.email || '',
+    picture: data.picture || '',
+    google_id: data.sub || ''
+  };
+}
+
+// ── BOOT ──
+async function bootApp() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('appScreen').style.display = 'block';
+
+  // Set header user info
+  const av = document.getElementById('headerAvatar');
+  if (currentUser.picture) {
+    av.innerHTML = `<img src="${currentUser.picture}" referrerpolicy="no-referrer">`;
+  } else {
+    av.textContent = initials(currentUser.name);
+  }
+  document.getElementById('headerName').textContent = currentUser.name.split(' ')[0];
+
+  // Profile tab
+  const pa = document.getElementById('profileAvatar');
+  if (currentUser.picture) {
+    pa.innerHTML = `<img src="${currentUser.picture}" referrerpolicy="no-referrer">`;
+  } else {
+    pa.textContent = initials(currentUser.name);
+  }
+  document.getElementById('profileName').textContent = currentUser.name;
+  document.getElementById('profileEmail').textContent = currentUser.email;
+
+  await loadSheet();
+  prefillMyProfile();
+  renderDirectory();
+}
+
+// ── SHEETS API ──
+async function loadSheet() {
+  const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${SHEET_NAME}`;
+  const res = await fetch(url, { headers: { Authorization: `Bearer ${accessToken}` } });
+  const data = await res.json();
+  const rows = data.values || [];
+
+  members = [];
+  myRowIndex = -1;
+
+  // rows[0] = headers, rows[1+] = data
+  for (let i = 1; i < rows.length; i++) {
+    const r = rows[i];
+    const m = {
+      id:          r[0]  || '',
+      nombre:      r[1]  || '',
+      apellido:    r[2]  || '',
+      empresa:     r[3]  || '',
+      edad:        r[4]  || '',
+      trayectoria: r[5]  || '',
+      hobbies:     r[6]  || '',
+      desafio:     r[7]  || '',
+      ayuda:       r[8]  || '',
+      google_id:   r[9]  || '',
+      email:       r[10] || '',
+      rowIndex: i + 1    // 1-based (header is row 1)
+    };
+    if (m.google_id === currentUser.google_id) myRowIndex = m.rowIndex;
+    members.push(m);
+  }
+}
+
+async function saveToSheet(data) {
+  const values = [
+    data.id, data.nombre, data.apellido, data.empresa, data.edad,
+    data.trayectoria, data.hobbies, data.desafio, data.ayuda,
+    data.google_id, data.email
+  ];
+
+  if (myRowIndex === -1) {
+    // Append new row
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${SHEET_NAME}:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`;
+    await fetch(url, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ values: [values] })
+    });
+  } else {
+    // Update existing row
+    const range = `${SHEET_NAME}!A${myRowIndex}:K${myRowIndex}`;
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${range}?valueInputOption=RAW`;
+    await fetch(url, {
+      method: 'PUT',
+      headers: { Authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ values: [values] })
+    });
+  }
+}
+
+// ── PROFILE ──
+function prefillMyProfile() {
+  const me = members.find(m => m.google_id === currentUser.google_id);
+  if (!me) return;
+  document.getElementById('p_nombre').value      = me.nombre;
+  document.getElementById('p_apellido').value    = me.apellido;
+  document.getElementById('p_empresa').value     = me.empresa;
+  document.getElementById('p_edad').value        = me.edad;
+  document.getElementById('p_trayectoria').value = me.trayectoria;
+  document.getElementById('p_hobbies').value     = me.hobbies;
+  document.getElementById('p_desafio').value     = me.desafio;
+  document.getElementById('p_ayuda').value       = me.ayuda;
+}
+
+async function saveProfile() {
+  const btn = document.getElementById('saveBtn');
+  btn.disabled = true;
+  btn.textContent = 'Guardando…';
+
+  const me = members.find(m => m.google_id === currentUser.google_id);
+  const data = {
+    id:          me?.id || Date.now().toString(36),
+    nombre:      document.getElementById('p_nombre').value.trim(),
+    apellido:    document.getElementById('p_apellido').value.trim(),
+    empresa:     document.getElementById('p_empresa').value.trim(),
+    edad:        document.getElementById('p_edad').value.trim(),
+    trayectoria: document.getElementById('p_trayectoria').value.trim(),
+    hobbies:     document.getElementById('p_hobbies').value.trim(),
+    desafio:     document.getElementById('p_desafio').value.trim(),
+    ayuda:       document.getElementById('p_ayuda').value.trim(),
+    google_id:   currentUser.google_id,
+    email:       currentUser.email
+  };
+
+  try {
+    await saveToSheet(data);
+    await loadSheet();
+    renderDirectory();
+    showToast('✓ Perfil guardado correctamente');
+  } catch(e) {
+    showToast('Error al guardar. Intentá de nuevo.');
+    console.error(e);
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Guardar perfil';
+}
+
+// ── DIRECTORY ──
+function renderDirectory() {
+  const q = (document.getElementById('searchInput')?.value || '').toLowerCase();
+  const container = document.getElementById('cardsContainer');
+  const meta = document.getElementById('listMeta');
+
+  const filtered = members.filter(m => {
+    if (!m.nombre && !m.apellido) return false;
+    return (m.nombre + ' ' + m.apellido + ' ' + m.empresa).toLowerCase().includes(q);
+  });
+
+  meta.innerHTML = `<b>${filtered.length}</b> miembro${filtered.length !== 1 ? 's' : ''}`;
+
+  if (filtered.length === 0) {
+    container.innerHTML = `
+      <div class="empty">
+        <div class="empty-icon">🌿</div>
+        <h3>${members.length === 0 ? 'El directorio está vacío' : 'Sin resultados'}</h3>
+        <p>${members.length === 0 ? 'Completá tu perfil para aparecer en el directorio.' : 'Probá con otro término de búsqueda.'}</p>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = filtered.map((m, i) => cardHTML(m, i)).join('');
+}
+
+function cardHTML(m, i) {
+  const isMe = m.google_id === currentUser.google_id;
+  const ini = initials(m.nombre + ' ' + m.apellido);
+  const style = `animation-delay:${Math.min(i,10)*0.04}s`;
+
+  return `
+  <div class="card${isMe ? ' is-me' : ''}" style="${style}">
+    <div class="card-top">
+      <div class="avatar">${ini}</div>
+      <div class="card-info">
+        <div class="card-name">${esc(m.nombre)} ${esc(m.apellido)}${isMe ? '<span class="me-tag">Yo</span>' : ''}</div>
+        <div class="card-company">${esc(m.empresa) || '—'}</div>
+        ${m.edad ? `<div class="card-age">${esc(m.edad)} años</div>` : ''}
+      </div>
+      ${isMe ? `<button class="edit-btn" onclick="showTab('profile')">Editar</button>` : ''}
+    </div>
+    <div class="accordions">
+      ${accRow(m.id+'_tr','dot-tray','📋 Trayectoria', m.trayectoria)}
+      ${accRow(m.id+'_ho','dot-hobby','🎯 Hobbies', m.hobbies)}
+      ${accDesafio(m.id+'_de', m.desafio, m.ayuda)}
+    </div>
+  </div>`;
+}
+
+function accRow(id, dot, label, content) {
+  if (!content) return '';
+  return `
+  <div class="acc-item">
+    <div class="acc-header" onclick="toggleAcc('${id}')">
+      <span class="acc-label"><span class="dot ${dot}"></span>${label}</span>
+      <svg class="acc-arrow" id="ar_${id}" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="acc-body" id="${id}">${esc(content)}</div>
+  </div>`;
+}
+
+function accDesafio(id, desafio, ayuda) {
+  if (!desafio && !ayuda) return '';
+  return `
+  <div class="acc-item">
+    <div class="acc-header" onclick="toggleAcc('${id}')">
+      <span class="acc-label"><span class="dot dot-desaf"></span>🔥 Desafío actual</span>
+      <svg class="acc-arrow" id="ar_${id}" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="acc-body" id="${id}">
+      ${desafio ? esc(desafio) : ''}
+      ${ayuda ? `<div><span class="help-pill">🤝 Busca: ${esc(ayuda)}</span></div>` : ''}
+    </div>
+  </div>`;
+}
+
+function toggleAcc(id) {
+  const b = document.getElementById(id);
+  const a = document.getElementById('ar_'+id);
+  if (!b) return;
+  b.classList.toggle('open');
+  a && a.classList.toggle('open');
+}
+
+// ── TABS ──
+function showTab(tab) {
+  const isDir = tab === 'directory';
+  document.getElementById('directoryTab').style.display = isDir ? 'block' : 'none';
+  document.getElementById('profileTab').style.display   = isDir ? 'none'  : 'block';
+
+  document.getElementById('tabDir').classList.toggle('active', isDir);
+  document.getElementById('tabProf').classList.toggle('active', !isDir);
+  document.getElementById('navDir').classList.toggle('active', isDir);
+  document.getElementById('navProf').classList.toggle('active', !isDir);
+}
+
+// ── UTILS ──
+function initials(name) {
+  return (name || '').split(' ').filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('');
+}
+
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function logout() {
+  if (!confirm('¿Cerrar sesión?')) return;
+  accessToken = null; currentUser = null; members = [];
+  document.getElementById('appScreen').style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'flex';
+}
+</script>
+</body>
+</html>
