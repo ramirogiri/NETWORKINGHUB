@@ -160,11 +160,15 @@ header{position:sticky;top:0;z-index:100;background:rgba(247,244,239,.94);backdr
 .card:hover{border-color:var(--border2);box-shadow:0 4px 20px rgba(0,0,0,.09);}
 .card.is-me{border-color:var(--accent);border-width:1.5px;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.card-top{padding:.8rem 1rem .65rem;display:flex;align-items:center;gap:10px;}
-.avatar{width:40px;height:40px;border-radius:50%;flex-shrink:0;background:var(--accent);color:#fff;font-family:'Cormorant Garamond',serif;font-size:.95rem;font-weight:600;display:flex;align-items:center;justify-content:center;overflow:hidden;border:2px solid var(--border);}
+.card-top{padding:.85rem 1rem .7rem;display:flex;align-items:flex-start;gap:12px;}
+.avatar{width:52px;height:52px;border-radius:12px;flex-shrink:0;background:var(--accent);color:#fff;font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;display:flex;align-items:center;justify-content:center;overflow:hidden;border:2px solid var(--border);cursor:pointer;transition:transform .2s,box-shadow .2s;}
+.avatar:hover{transform:scale(1.06);box-shadow:0 4px 16px rgba(0,0,0,.15);}
 .avatar img{width:100%;height:100%;object-fit:cover;}
 .card-info{flex:1;min-width:0;}
-.card-name{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;display:flex;align-items:center;gap:5px;flex-wrap:wrap;line-height:1.2;}
+.card-row-1{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-bottom:4px;}
+.card-name-text{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;line-height:1.2;}
+.card-row-2{display:flex;align-items:center;gap:5px;flex-wrap:wrap;}
+
 .me-tag{background:var(--accent);color:#fff;font-size:.55rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:2px 6px;border-radius:20px;font-family:'Outfit',sans-serif;flex-shrink:0;}
 .card-company-row{display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap;}
 .card-company{font-size:.75rem;color:var(--gold);font-weight:500;}
@@ -179,6 +183,16 @@ header{position:sticky;top:0;z-index:100;background:rgba(247,244,239,.94);backdr
 .card-actions{display:flex;gap:5px;flex-shrink:0;align-self:center;}
 .edit-btn{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:4px 9px;font-family:'Outfit',sans-serif;font-size:.71rem;font-weight:500;color:var(--accent);cursor:pointer;transition:all .2s;white-space:nowrap;}
 .edit-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent);}
+.expand-btn{background:none;border:1px solid var(--border);border-radius:8px;padding:3px 8px;font-size:.8rem;color:var(--muted);cursor:pointer;transition:all .2s;line-height:1;}
+.photo-modal-overlay{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);align-items:center;justify-content:center;cursor:pointer;}
+.photo-modal-overlay.open{display:flex;}
+.photo-modal-img{width:220px;height:220px;border-radius:20px;object-fit:cover;box-shadow:0 20px 60px rgba(0,0,0,.5);animation:photoIn .2s ease;}
+.photo-modal-initials{width:220px;height:220px;border-radius:20px;background:var(--accent);color:#fff;font-family:'Cormorant Garamond',serif;font-size:5rem;font-weight:600;display:flex;align-items:center;justify-content:center;box-shadow:0 20px 60px rgba(0,0,0,.4);animation:photoIn .2s ease;}
+.photo-modal-name{color:#fff;font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;margin-top:1rem;text-align:center;}
+.photo-modal-company{color:rgba(255,255,255,.7);font-size:.85rem;margin-top:4px;text-align:center;}
+@keyframes photoIn{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
+.expand-btn:hover{border-color:var(--accent);color:var(--accent);}
+.card-accordions{border-top:1px solid var(--border);}
 .wa-btn{display:inline-flex;align-items:center;gap:4px;background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.3);border-radius:8px;padding:4px 9px;font-family:'Outfit',sans-serif;font-size:.71rem;font-weight:500;color:#1a9e52;cursor:pointer;transition:all .2s;white-space:nowrap;text-decoration:none;}
 .wa-btn:hover{background:var(--whatsapp);color:#fff;border-color:var(--whatsapp);}
 .accordions{border-top:1px solid var(--border);}
@@ -235,6 +249,12 @@ header{position:sticky;top:0;z-index:100;background:rgba(247,244,239,.94);backdr
 .profile-email-display{font-size:.8rem;color:var(--muted);margin-bottom:12px;}
 .photo-hint-box{background:rgba(43,74,63,.05);border:1px solid rgba(43,74,63,.12);border-radius:10px;padding:10px 13px;font-size:.78rem;color:#4a6058;line-height:1.55;}
 .photo-hint-box strong{color:var(--accent);font-weight:600;}
+.phone-wrap{display:flex;gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--bg);transition:border-color .2s,box-shadow .2s;}
+.phone-wrap:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px rgba(43,74,63,.1);}
+.phone-country{background:var(--bg2);border:none;border-right:1px solid var(--border);padding:10px 8px;font-family:'Outfit',sans-serif;font-size:.82rem;color:var(--text);outline:none;cursor:pointer;flex-shrink:0;}
+.phone-wrap input{border:none;background:transparent;flex:1;min-width:0;padding:10px 12px;font-family:'Outfit',sans-serif;font-size:.88rem;color:var(--text);outline:none;}
+.phone-wrap input::placeholder{color:#bbb5aa;}
+.phone-hint{font-size:.72rem;color:var(--muted);margin-top:5px;font-style:italic;}
 .form-section{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.4rem;margin-bottom:14px;box-shadow:var(--shadow);}
 .form-section-title{font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;display:flex;align-items:center;gap:7px;}
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
@@ -481,6 +501,33 @@ header{position:sticky;top:0;z-index:100;background:rgba(247,244,239,.94);backdr
         <div class="field"><label>Empresa / Proyecto</label><input id="p_empresa" type="text" placeholder="Donde trabajás o tu proyecto"></div>
         <div class="field"><label>Edad</label><input id="p_edad" type="text" placeholder="Tu edad"></div>
       </div>
+      <div class="field" style="margin-top:12px">
+        <label>📱 Celular</label>
+        <div class="phone-wrap">
+          <select id="p_phone_country" class="phone-country">
+            <option value="54" data-mobile="9">🇦🇷 +54</option>
+            <option value="1">🇺🇸 +1</option>
+            <option value="52" data-mobile="1">🇲🇽 +52</option>
+            <option value="56">🇨🇱 +56</option>
+            <option value="51">🇵🇪 +51</option>
+            <option value="57">🇨🇴 +57</option>
+            <option value="598">🇺🇾 +598</option>
+            <option value="595">🇵🇾 +595</option>
+            <option value="591">🇧🇴 +591</option>
+            <option value="593">🇪🇨 +593</option>
+            <option value="58">🇻🇪 +58</option>
+            <option value="55">🇧🇷 +55</option>
+            <option value="34">🇪🇸 +34</option>
+            <option value="39">🇮🇹 +39</option>
+            <option value="44">🇬🇧 +44</option>
+            <option value="49">🇩🇪 +49</option>
+            <option value="33">🇫🇷 +33</option>
+            <option value="972">🇮🇱 +972</option>
+          </select>
+          <input id="p_phone_local" type="tel" placeholder="Ej: 1155667788 (sin 0 ni 15)">
+        </div>
+        <div class="phone-hint">Ingresá tu número local sin el 0 inicial ni el 15. Ej: 1155667788</div>
+      </div>
     </div>
     <div class="form-section">
       <div class="form-section-title">🏭 Industria</div>
@@ -602,6 +649,14 @@ header{position:sticky;top:0;z-index:100;background:rgba(247,244,239,.94);backdr
   </div>
 </div>
 
+<div class="photo-modal-overlay" id="photoModalOverlay" onclick="closePhotoModal()">
+  <div style="display:flex;flex-direction:column;align-items:center;" onclick="event.stopPropagation()">
+    <div id="photoModalContent"></div>
+    <div class="photo-modal-name" id="photoModalName"></div>
+    <div class="photo-modal-company" id="photoModalCompany"></div>
+    <div style="color:rgba(255,255,255,.4);font-size:.75rem;margin-top:1rem;">Tocá en cualquier lugar para cerrar</div>
+  </div>
+</div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -760,7 +815,7 @@ async function loadAllSheets(){
   members=[]; myRowIndex=-1;
   for(let i=1;i<mRows.length;i++){
     const r=mRows[i];
-    const m={id:r[0]||'',nombre:r[1]||'',apellido:r[2]||'',empresa:r[3]||'',edad:r[4]||'',trayectoria:r[5]||'',hobbies:r[6]||'',desafio:r[7]||'',ayuda:r[8]||'',google_id:r[9]||'',email:r[10]||'',industria:r[11]||'',linkedin:r[12]||'',web:r[13]||'',foto:r[14]||'',formacion:r[15]||'',status:r[16]||'pending',rowIndex:i+1};
+    const m={id:r[0]||'',nombre:r[1]||'',apellido:r[2]||'',empresa:r[3]||'',edad:r[4]||'',trayectoria:r[5]||'',hobbies:r[6]||'',desafio:r[7]||'',ayuda:r[8]||'',google_id:r[9]||'',email:r[10]||'',industria:r[11]||'',linkedin:r[12]||'',web:r[13]||'',foto:r[14]||'',formacion:r[15]||'',status:r[16]||'pending',phone:r[17]||'',rowIndex:i+1};
     if(m.google_id===currentUser.google_id) myRowIndex=m.rowIndex;
     members.push(m);
   }
@@ -1040,7 +1095,7 @@ function renderAdmin(){
 async function approveMember(gid){
   const m=members.find(x=>x.google_id===gid); if(!m)return;
   m.status='approved';
-  await sheetUpdate(SH_MEMBERS,m.rowIndex,[m.id,m.nombre,m.apellido,m.empresa,m.edad,m.trayectoria,m.hobbies,m.desafio,m.ayuda,m.google_id,m.email,m.industria,m.linkedin,m.web,m.foto,m.formacion,'approved'],'Q');
+  await sheetUpdate(SH_MEMBERS,m.rowIndex,[m.id,m.nombre,m.apellido,m.empresa,m.edad,m.trayectoria,m.hobbies,m.desafio,m.ayuda,m.google_id,m.email,m.industria,m.linkedin,m.web,m.foto,m.formacion,'approved',m.phone||''],'R');
   renderAdmin(); renderDirectory(); renderDirPreview();
   showToast(`✓ ${m.nombre} admitido a la comunidad`);
 }
@@ -1049,7 +1104,7 @@ async function rejectMember(gid){
   if(!confirm('¿Rechazar esta solicitud?'))return;
   const m=members.find(x=>x.google_id===gid); if(!m)return;
   m.status='rejected';
-  await sheetUpdate(SH_MEMBERS,m.rowIndex,[m.id,m.nombre,m.apellido,m.empresa,m.edad,m.trayectoria,m.hobbies,m.desafio,m.ayuda,m.google_id,m.email,m.industria,m.linkedin,m.web,m.foto,m.formacion,'rejected'],'Q');
+  await sheetUpdate(SH_MEMBERS,m.rowIndex,[m.id,m.nombre,m.apellido,m.empresa,m.edad,m.trayectoria,m.hobbies,m.desafio,m.ayuda,m.google_id,m.email,m.industria,m.linkedin,m.web,m.foto,m.formacion,'rejected',m.phone||''],'R');
   renderAdmin();
   showToast('Solicitud rechazada');
 }
@@ -1073,42 +1128,87 @@ function renderDirectory(){
   con.innerHTML=filtered.map((m,i)=>cardHTML(m,i)).join('');
 }
 
+function waIcon(){return`<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.535 5.857L.057 23.882a.75.75 0 0 0 .921.921l6.025-1.478A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.713 9.713 0 0 1-4.953-1.355l-.355-.212-3.683.904.919-3.574-.232-.368A9.712 9.712 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>`;}
+
+function buildWaHref(m){
+  if(!m.phone)return null;
+  const parts=m.phone.split('|');
+  if(parts.length!==2)return null;
+  const country=parts[0];
+  let local=parts[1].replace(/\D/g,'').replace(/^0/,'').replace(/^15/,'');
+  return 'https://api.whatsapp.com/send?phone='+country+local;
+}
+
+function openPhotoModal(m){
+  if(!m)return;
+  const overlay=document.getElementById('photoModalOverlay');
+  const content=document.getElementById('photoModalContent');
+  document.getElementById('photoModalName').textContent=m.nombre+' '+m.apellido;
+  document.getElementById('photoModalCompany').textContent=m.empresa||'';
+  content.innerHTML=m.foto
+    ?`<img src="${m.foto}" class="photo-modal-img" referrerpolicy="no-referrer">`
+    :`<div class="photo-modal-initials">${initials(m.nombre+' '+m.apellido)}</div>`;
+  overlay.classList.add('open');
+}
+function closePhotoModal(){document.getElementById('photoModalOverlay').classList.remove('open');}
+
 function cardHTML(m,i){
   const isMe=m.google_id===currentUser.google_id;
   const avContent=m.foto?`<img src="${m.foto}" referrerpolicy="no-referrer">`:initials(m.nombre+' '+m.apellido);
   const ind=INDUSTRIES.find(x=>x.key===m.industria);
   const indBadge=ind?`<span class="industry-badge">${ind.emoji} ${ind.label}</span>`:m.industria?`<span class="industry-badge">✨ ${esc(m.industria)}</span>`:'';
-  const liLink=m.linkedin?`<a class="card-link linkedin" href="${esc(m.linkedin)}" target="_blank" rel="noopener"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg> in</a>`:'';
-  const wbLink=m.web?`<a class="card-link website" href="${esc(m.web)}" target="_blank" rel="noopener"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10z"/></svg> web</a>`:'';
-  const waText=encodeURIComponent(`¡Hola! Te comparto el perfil de *${m.nombre} ${m.apellido}*${m.empresa?' ('+m.empresa+')':''} de nuestra comunidad The Hub 🤝\nhttps://ramirogiri.github.io/networkinghub`);
-  const waBtn=`<a class="wa-btn" href="https://wa.me/?text=${waText}" target="_blank" rel="noopener"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.535 5.857L.057 23.882a.75.75 0 0 0 .921.921l6.025-1.478A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.713 9.713 0 0 1-4.953-1.355l-.355-.212-3.683.904.919-3.574-.232-.368A9.712 9.712 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg></a>`;
-  // first ~40 chars of trayectoria as peek
-  const peek=(t)=>t?(t.replace(/<[^>]+>/g,'').substring(0,42)+(t.length>42?'…':'')):null;
+  const liLink=m.linkedin?`<a class="card-link linkedin" href="${esc(m.linkedin)}" target="_blank" rel="noopener" title="LinkedIn"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg> in</a>`:'';
+  const wbLink=m.web?`<a class="card-link website" href="${esc(m.web)}" target="_blank" rel="noopener" title="Web"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10z"/></svg> web</a>`:'';
+  const waHref=buildWaHref(m);
+  const waBtn=waHref?`<a class="wa-btn" href="${waHref}" target="_blank" rel="noopener" title="WhatsApp">${waIcon()}</a>`:'';
+  const hasAccordion=m.trayectoria||m.formacion||m.hobbies||m.desafio||m.ayuda;
+  const gid=m.google_id;
+  const mid=m.id;
   return`<div class="card${isMe?' is-me':''}" style="animation-delay:${Math.min(i,10)*.04}s">
     <div class="card-top">
-      <div class="avatar">${avContent}</div>
+      <div class="avatar" onclick="openPhotoModal(members.find(x=>x.google_id==='${gid}'))">${avContent}</div>
       <div class="card-info">
-        <div class="card-name">${esc(m.nombre)} ${esc(m.apellido)}${isMe?'<span class="me-tag">Yo</span>':''}</div>
-        <div class="card-company-row">
-          <span class="card-company">${esc(m.empresa)||'—'}</span>
-          ${(liLink||wbLink)?`<span class="card-sep">·</span>${liLink}${wbLink}`:''}
-        </div>
-        <div class="card-meta-row">
-          ${m.edad?`<span class="card-age">${esc(m.edad)} años</span>`:''}
+        <div class="card-row-1">
+          <span class="card-name-text">${esc(m.nombre)} ${esc(m.apellido)}${isMe?'<span class="me-tag">Yo</span>':''}</span>
+          ${m.empresa?`<span class="card-sep">·</span><span class="card-company">${esc(m.empresa)}</span>`:''}
           ${indBadge}
         </div>
+        <div class="card-row-2">
+          ${m.edad?`<span class="card-age">${esc(m.edad)} años</span>`:''}
+          ${liLink}${wbLink}${waBtn}
+        </div>
       </div>
-      <div class="card-actions">${isMe?`<button class="edit-btn" onclick="showTab('profile')">Editar</button>`:''}${waBtn}</div>
+      <div class="card-actions">
+        ${isMe?`<button class="edit-btn" onclick="showTab('profile')">Editar</button>`:''}
+        ${hasAccordion?`<button class="expand-btn" id="expbtn_${mid}" onclick="toggleCard('card_acc_${mid}','expbtn_${mid}')">▾</button>`:''}
+      </div>
     </div>
-    <div class="accordions">
-      ${accRow(m.id+'_tr','dot-tray','📋 Trayectoria',m.trayectoria,peek(m.trayectoria))}
-      ${accRow(m.id+'_fo','dot-form','🎓 Formación',m.formacion,peek(m.formacion))}
-      ${accRow(m.id+'_ho','dot-hobby','🎯 Hobbies',m.hobbies,peek(m.hobbies))}
-      ${accDesafio(m.id+'_de',m.desafio,m.ayuda)}
-    </div>
+    ${hasAccordion?`<div class="card-accordions" id="card_acc_${mid}" style="display:none">
+      <div style="padding:.6rem 1rem .3rem;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border)">
+        <div style="width:56px;height:56px;border-radius:10px;background:var(--accent);color:#fff;font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;border:2px solid var(--border);cursor:pointer" onclick="openPhotoModal(members.find(x=>x.google_id==='${gid}'))">${m.foto?`<img src="${m.foto}" style="width:100%;height:100%;object-fit:cover" referrerpolicy="no-referrer">`:initials(m.nombre+' '+m.apellido)}</div>
+        <div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600">${esc(m.nombre)} ${esc(m.apellido)}</div>
+          <div style="font-size:.76rem;color:var(--gold);margin-top:2px">${esc(m.empresa||'')}${m.edad?' · '+esc(m.edad)+' años':''}</div>
+        </div>
+      </div>
+      <div class="accordions">
+        ${accRow(mid+'_tr','dot-tray','📋 Trayectoria',m.trayectoria,null)}
+        ${accRow(mid+'_fo','dot-form','🎓 Formación',m.formacion,null)}
+        ${accRow(mid+'_ho','dot-hobby','🎯 Hobbies',m.hobbies,null)}
+        ${accDesafio(mid+'_de',m.desafio,m.ayuda)}
+      </div>
+    </div>`:''}
   </div>`;
 }
 
+
+function toggleCard(id,btnId){
+  const el=document.getElementById(id);if(!el)return;
+  const open=el.style.display!=='none';
+  el.style.display=open?'none':'block';
+  const btn=btnId?document.getElementById(btnId):el.previousElementSibling?.querySelector('.expand-btn');
+  if(btn)btn.textContent=open?'▾':'▴';
+}
 function accRow(id,dot,label,content,peek){if(!content)return'';const peekHTML=peek&&!document.getElementById(id)?.classList.contains('open')?`<span class="acc-peek">${esc(peek)}</span>`:'';return`<div class="acc-item"><div class="acc-header" onclick="toggleAcc('${id}')"><span class="acc-label"><span class="dot ${dot}"></span>${label}<span class="acc-peek" id="pk_${id}">${peek?esc(peek):''}</span></span><svg class="acc-arrow" id="ar_${id}" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div><div class="acc-body" id="${id}">${esc(content)}</div></div>`;}
 function accDesafio(id,desafio,ayuda){if(!desafio&&!ayuda)return'';return`<div class="acc-item"><div class="acc-header" onclick="toggleAcc('${id}')"><span class="acc-label"><span class="dot dot-desaf"></span>🔥 Desafíos actuales y comunidad</span><svg class="acc-arrow" id="ar_${id}" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div><div class="acc-body" id="${id}">${desafio?esc(desafio):''}${ayuda?`<div><span class="help-pill">🤝 Busca: ${esc(ayuda)}</span></div>`:''}</div></div>`;}
 function toggleAcc(id){const b=document.getElementById(id),a=document.getElementById('ar_'+id),pk=document.getElementById('pk_'+id);if(!b)return;const opening=!b.classList.contains('open');b.classList.toggle('open');a&&a.classList.toggle('open');if(pk)pk.style.display=opening?'none':'';}
@@ -1120,6 +1220,16 @@ function handlePhotoUpload(e){const file=e.target.files[0];if(!file)return;const
 function prefillMyProfile(){
   const me=members.find(m=>m.google_id===currentUser.google_id);if(!me)return;
   ['nombre','apellido','empresa','edad','trayectoria','hobbies','desafio','ayuda','web','formacion'].forEach(k=>{const el=document.getElementById('p_'+k);if(el)el.value=me[k]||'';});
+  // Restore phone: stored as "countryCode|localNumber"
+  if(me.phone){
+    const parts=me.phone.split('|');
+    if(parts.length===2){
+      const sel=document.getElementById('p_phone_country');
+      const loc=document.getElementById('p_phone_local');
+      if(sel)sel.value=parts[0];
+      if(loc)loc.value=parts[1];
+    }
+  }
   document.getElementById('p_linkedin').value=liSlug(me.linkedin||'');
   if(me.industria){const known=INDUSTRIES.find(i=>i.key===me.industria);if(known)toggleIndustry(me.industria);else{toggleIndustry('otros');document.getElementById('p_otra_industria').value=me.industria;}}
   if(me.foto){profilePhoto=me.foto;refreshProfileAvatar(me.foto,me.nombre);}
@@ -1147,11 +1257,17 @@ async function saveProfile(){
     foto:profilePhoto||me?.foto||currentUser.picture||'',
     formacion:document.getElementById('p_formacion').value.trim(),
     status,
+    phone:(()=>{
+      const country=document.getElementById('p_phone_country');
+      const local=document.getElementById('p_phone_local');
+      if(!country||!local||!local.value.trim())return'';
+      return country.value+'|'+local.value.trim().replace(/\D/g,'');
+    })(),
   };
-  const vals=[data.id,data.nombre,data.apellido,data.empresa,data.edad,data.trayectoria,data.hobbies,data.desafio,data.ayuda,data.google_id,data.email,data.industria,data.linkedin,data.web,data.foto,data.formacion,data.status];
+  const vals=[data.id,data.nombre,data.apellido,data.empresa,data.edad,data.trayectoria,data.hobbies,data.desafio,data.ayuda,data.google_id,data.email,data.industria,data.linkedin,data.web,data.foto,data.formacion,data.status,data.phone||''];
   try{
     if(myRowIndex===-1) await sheetAppend(SH_MEMBERS,vals);
-    else await sheetUpdate(SH_MEMBERS,myRowIndex,vals,'Q');
+    else await sheetUpdate(SH_MEMBERS,myRowIndex,vals,'R');
     await loadAllSheets();
     renderDirectory();renderLanding();if(isAdmin)renderAdmin();
     // Show pending screen if new user just submitted
