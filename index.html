@@ -47,7 +47,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;
 #appScreen{display:none;}
 
 /* HEADER */
-header{position:sticky;top:0;z-index:100;background:rgba(247,244,239,.94);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 1.5rem;height:62px;display:flex;align-items:center;justify-content:space-between;}
+header{position:sticky;top:0;z-index:100;background:rgba(247,244,239,.94);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 1.5rem;min-height:62px;display:flex;align-items:center;justify-content:space-between;}.header-right{display:flex;align-items:center;gap:10px;}.header-user-col{display:flex;flex-direction:column;align-items:flex-end;gap:4px;}
 .logo{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:var(--accent);letter-spacing:-.01em;}
 .header-right{display:flex;align-items:center;gap:10px;}
 .user-chip{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:30px;padding:5px 12px 5px 5px;}
@@ -56,6 +56,9 @@ header{position:sticky;top:0;z-index:100;background:rgba(247,244,239,.94);backdr
 .user-name{font-size:.82rem;font-weight:500;max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .logout-btn{background:none;border:none;cursor:pointer;color:var(--muted);font-size:.78rem;padding:2px 4px;font-family:'Outfit',sans-serif;transition:color .2s;}
 .logout-btn:hover{color:var(--danger);}
+.header-user-col{display:flex;flex-direction:column;align-items:flex-end;gap:4px;}
+.header-profile-btn{background:none;border:none;font-family:'Outfit',sans-serif;font-size:.74rem;font-weight:500;color:var(--accent);cursor:pointer;padding:0 2px;transition:opacity .2s;text-align:right;}
+.header-profile-btn:hover{opacity:.7;}
 .admin-badge{background:var(--gold);color:#fff;font-size:.65rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:20px;}
 
 /* TABS */
@@ -66,7 +69,7 @@ header{position:sticky;top:0;z-index:100;background:rgba(247,244,239,.94);backdr
 .tab:hover:not(.active){color:var(--text);}
 
 /* ═══ LANDING ═══ */
-#landingTab{display:block;padding:1.5rem;}
+#landingTab{display:block;padding:1.5rem;padding-bottom:5rem;}
 .landing-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:1000px;margin:0 auto;}
 .landing-col-left{display:flex;flex-direction:column;gap:16px;}
 .landing-col-right{display:flex;flex-direction:column;gap:16px;}
@@ -110,6 +113,10 @@ header{position:sticky;top:0;z-index:100;background:rgba(247,244,239,.94);backdr
 .rsvp-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent);}
 .rsvp-btn.going{background:var(--accent);color:#fff;border-color:var(--accent);}
 .rsvp-btn.going:hover{background:var(--danger);border-color:var(--danger);}
+.gcal-btn{font-size:1.1rem;text-decoration:none;opacity:.8;transition:opacity .2s;cursor:pointer;}
+.gcal-btn:hover{opacity:1;}
+.del-event-btn{background:none;border:1px solid var(--border);border-radius:8px;padding:4px 8px;font-size:.85rem;cursor:pointer;transition:all .2s;color:var(--muted);}
+.del-event-btn:hover{border-color:var(--danger);background:rgba(139,58,58,.06);}
 
 /* ═══ NEWS ═══ */
 .news-card{border:1px solid var(--border);border-radius:14px;padding:1.1rem;margin-bottom:10px;transition:border-color .2s;}
@@ -348,11 +355,16 @@ header{position:sticky;top:0;z-index:100;background:rgba(247,244,239,.94);backdr
     <div class="logo">The Hub</div>
     <div class="header-right">
       <span class="admin-badge" id="adminBadge" style="display:none">Admin</span>
-      <div class="user-chip">
-        <div class="user-avatar" id="headerAvatar"></div>
-        <div class="user-name" id="headerName"></div>
+      <div class="header-user-col">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div class="user-chip">
+            <div class="user-avatar" id="headerAvatar"></div>
+            <div class="user-name" id="headerName"></div>
+          </div>
+          <button class="logout-btn" onclick="logout()">Salir</button>
+        </div>
+        <button class="header-profile-btn" onclick="showTab('profile')">👤 Mi perfil</button>
       </div>
-      <button class="logout-btn" onclick="logout()">Salir</button>
     </div>
   </header>
 
@@ -360,7 +372,7 @@ header{position:sticky;top:0;z-index:100;background:rgba(247,244,239,.94);backdr
     <div class="tab active" id="tabLand" onclick="showTab('landing')">🏠 Inicio</div>
     <div class="tab" id="tabDir" onclick="showTab('directory')">
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-      Directorio
+      Comunidad
     </div>
     <div class="tab" id="tabProf" onclick="showTab('profile')">
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -414,7 +426,7 @@ header{position:sticky;top:0;z-index:100;background:rgba(247,244,239,.94);backdr
           <div class="panel-header">
             <div class="panel-title">
               <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              Directorio
+              Comunidad
             </div>
             <span style="font-size:.78rem;color:var(--accent);font-weight:500;">Ver todos →</span>
           </div>
@@ -528,7 +540,7 @@ header{position:sticky;top:0;z-index:100;background:rgba(247,244,239,.94);backdr
     </div>
     <div class="nav-item" id="navDir" onclick="showTab('directory')">
       <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-      Directorio
+      Comunidad
     </div>
     <div class="nav-item" id="navProf" onclick="showTab('profile')">
       <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -642,6 +654,18 @@ function liSlug(v){return(v||'').replace(/^https?:\/\/(www\.)?linkedin\.com\/in\
 function liUrl(s){if(!s)return'';if(s.startsWith('http'))return s;return LI_PREFIX+s;}
 
 // ═══ GOOGLE LOGIN ═══
+// ── SESSION RESTORE ──
+function trySilentRestore(){
+  const saved=sessionStorage.getItem('hub_session');
+  if(!saved)return false;
+  try{
+    const s=JSON.parse(saved);
+    accessToken=s.accessToken;currentUser=s.currentUser;
+    return true;
+  }catch{return false;}
+}
+function saveSession(){sessionStorage.setItem('hub_session',JSON.stringify({accessToken,currentUser}));}
+
 function handleGoogleLogin(){
   google.accounts.oauth2.initTokenClient({
     client_id:CLIENT_ID,
@@ -795,11 +819,34 @@ function eventCardHTML(e){
         <div class="attendee-faces" onclick="openAttendeesModal('${e.id}')" style="cursor:pointer">${faces}</div>
         ${extra}
       </div>
-      <button class="rsvp-btn${going?' going':''}" onclick="toggleRSVP('${e.id}')">
-        ${going?'✓ Voy! (cancelar)':'🙋 ¡Voy!'}
-      </button>
+      <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+        ${e.fecha?`<a class="gcal-btn" href="${gcalUrl(e)}" target="_blank" rel="noopener" title="Agregar a Google Calendar">📆</a>`:''}
+        <button class="rsvp-btn${going?' going':''}" onclick="toggleRSVP('${e.id}')">
+          ${going?'✓ Voy! (cancelar)':'🙋 ¡Voy!'}
+        </button>
+        ${isAdmin?`<button class="del-event-btn" onclick="deleteEvent('${e.id}')" title="Eliminar evento">🗑</button>`:''}
+      </div>
     </div>
   </div>`;
+}
+
+function gcalUrl(e){
+  const fmt=d=>d.replace(/-/g,'');
+  const start=fmt(e.fecha)+(e.hora?'T'+e.hora.replace(':','')+'00':'');
+  const end=e.hora?(fmt(e.fecha)+'T'+((parseInt(e.hora.split(':')[0])+2)+'').padStart(2,'0')+e.hora.split(':')[1]+'00'):'';
+  const p=new URLSearchParams({action:'TEMPLATE',text:e.titulo,details:e.desc||'',location:e.lugar||'',dates:start+(end?'/'+end:'')});
+  return 'https://calendar.google.com/calendar/render?'+p.toString();
+}
+
+async function deleteEvent(eventId){
+  if(!confirm('¿Eliminar este evento?'))return;
+  if(!confirm('⚠️ Segunda confirmación: esta acción es irreversible. ¿Confirmar eliminación?'))return;
+  const e=events.find(x=>x.id===eventId);if(!e)return;
+  // Clear the row by blanking all cells
+  await sheetUpdate(SH_EVENTS,e.rowIndex,['','','','','','',''],'G');
+  events=events.filter(x=>x.id!==eventId);
+  renderEvents();
+  showToast('Evento eliminado');
 }
 
 async function toggleRSVP(eventId){
@@ -835,11 +882,24 @@ function newsCardHTML(n){
     <div class="news-title">${esc(n.titulo)}</div>
     ${n.desc?`<div class="news-desc">${esc(n.desc)}</div>`:''}
     ${n.link?`<a class="news-link" href="${esc(n.link)}" target="_blank" rel="noopener"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Ver link</a>`:''}
-    <div class="news-reactions">
-      <button class="reaction-btn${myHeart?' reacted':''}" onclick="reactNews('${n.id}','heart')">❤️ ${n.heart||0}</button>
-      <button class="reaction-btn${myClap?' reacted':''}" onclick="reactNews('${n.id}','clap')">👏 ${n.clap||0}</button>
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+      <div class="news-reactions">
+        <button class="reaction-btn${myHeart?' reacted':''}" onclick="reactNews('${n.id}','heart')">❤️ ${n.heart||0}</button>
+        <button class="reaction-btn${myClap?' reacted':''}" onclick="reactNews('${n.id}','clap')">👏 ${n.clap||0}</button>
+      </div>
+      ${isAdmin?`<button class="del-event-btn" onclick="deleteNews('${n.id}')" title="Eliminar novedad">🗑 Eliminar</button>`:''}
     </div>
   </div>`;
+}
+
+async function deleteNews(newsId){
+  if(!confirm('¿Eliminar esta novedad?'))return;
+  if(!confirm('⚠️ Segunda confirmación: ¿confirmar eliminación?'))return;
+  const n=news.find(x=>x.id===newsId);if(!n)return;
+  await sheetUpdate(SH_NEWS,n.rowIndex,['','','','','','','','','','','',''],'L');
+  news=news.filter(x=>x.id!==newsId);
+  renderNews();
+  showToast('Novedad eliminada');
 }
 
 async function reactNews(newsId,type){
@@ -1127,12 +1187,20 @@ function closeModal(id){document.getElementById(id).classList.remove('open');}
 function closeIfOverlay(e,id){if(e.target===document.getElementById(id))closeModal(id);}
 function openNewsModalForAll(){if(isApproved)openNewsModal();else showToast('Necesitás ser miembro para publicar');}
 
+// ── AUTO RESTORE ON LOAD ──
+(async function(){
+  if(trySilentRestore()){
+    try{ await bootApp(); }
+    catch(e){ sessionStorage.removeItem('hub_session'); }
+  }
+})();
+
 // ═══ UTILS ═══
 function today(){return new Date().toISOString().slice(0,10);}
 function initials(n){return(n||'').split(' ').filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('');}
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/\n/g,'<br>');}
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3200);}
-function logout(){if(!confirm('¿Cerrar sesión?'))return;accessToken=null;currentUser=null;members=[];document.getElementById('appScreen').style.display='none';document.getElementById('pendingScreen').style.display='none';document.getElementById('loginScreen').style.display='flex';}
+function logout(){if(!confirm('¿Cerrar sesión?'))return;accessToken=null;currentUser=null;members=[];sessionStorage.removeItem('hub_session');document.getElementById('appScreen').style.display='none';document.getElementById('pendingScreen').style.display='none';document.getElementById('loginScreen').style.display='flex';}
 </script>
 </body>
 </html>
