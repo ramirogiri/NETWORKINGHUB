@@ -160,21 +160,21 @@ header{position:sticky;top:0;z-index:100;background:rgba(247,244,239,.94);backdr
 .avatar:hover{transform:scale(1.06);box-shadow:0 4px 16px rgba(0,0,0,.15);}
 .avatar img{width:100%;height:100%;object-fit:cover;}
 .card-info{flex:1;min-width:0;}
-.card-row-1{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-bottom:4px;}
-.card-name-text{font-family:'Cormorant Garamond',serif;font-size:1.12rem;font-weight:700;line-height:1.15;letter-spacing:-.01em;}
-.card-row-2{display:flex;align-items:center;gap:5px;flex-wrap:wrap;}
+.card-row-1{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-bottom:3px;}
+.card-name-text{font-family:'Cormorant Garamond',serif;font-size:1.18rem;font-weight:700;line-height:1.15;letter-spacing:-.01em;}
+.card-row-2{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:2px;}.card-row-3{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:4px;}
 
 .me-tag{background:var(--accent);color:#fff;font-size:.55rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:2px 6px;border-radius:20px;font-family:'Outfit',sans-serif;flex-shrink:0;}
 .card-company-row{display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap;}
 .card-company{font-size:.7rem;color:var(--gold);font-weight:600;letter-spacing:.06em;text-transform:uppercase;}
 .card-sep{color:var(--border2);font-size:.8rem;}
-.card-meta-row{display:flex;align-items:center;gap:5px;margin-top:3px;flex-wrap:wrap;}
+.card-meta-row{display:flex;align-items:center;gap:5px;margin-top:2px;flex-wrap:wrap;}
 .card-age{font-size:.7rem;color:var(--muted);letter-spacing:.04em;}
 .industry-badge{display:inline-flex;align-items:center;gap:3px;background:var(--tag-bg);border:1px solid rgba(43,74,63,.15);color:var(--accent);font-size:.67rem;font-weight:500;padding:1px 7px;border-radius:20px;}
-.card-link{display:inline-flex;align-items:center;gap:3px;font-size:.67rem;font-weight:500;padding:2px 7px;border-radius:20px;text-decoration:none;transition:opacity .2s;}
+.card-link{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;text-decoration:none;transition:all .18s;}
 .card-link:hover{opacity:.75;}
-.card-link.linkedin{background:rgba(10,102,194,.1);color:var(--linkedin);border:1px solid rgba(10,102,194,.2);}
-.card-link.website{background:var(--tag-bg);color:var(--accent);border:1px solid rgba(43,74,63,.2);}
+.card-link.linkedin{background:rgba(10,102,194,.1);color:var(--linkedin);border:1px solid rgba(10,102,194,.2);}.card-link.linkedin:hover{background:var(--linkedin);color:#fff;}
+.card-link.website{background:var(--tag-bg);color:var(--accent);border:1px solid rgba(43,74,63,.2);}.card-link.website:hover{background:var(--accent);color:#fff;}
 .card-actions{display:flex;gap:5px;flex-shrink:0;align-self:center;}
 .edit-btn{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:4px 9px;font-family:'Outfit',sans-serif;font-size:.71rem;font-weight:500;color:var(--accent);cursor:pointer;transition:all .2s;white-space:nowrap;}
 .edit-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent);}
@@ -188,7 +188,7 @@ header{position:sticky;top:0;z-index:100;background:rgba(247,244,239,.94);backdr
 @keyframes photoIn{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
 .expand-btn:hover{border-color:var(--accent);color:var(--accent);}
 .card-accordions{border-top:1px solid var(--border);}
-.wa-btn{display:inline-flex;align-items:center;gap:4px;background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.3);border-radius:8px;padding:4px 9px;font-family:'Outfit',sans-serif;font-size:.71rem;font-weight:500;color:#1a9e52;cursor:pointer;transition:all .2s;white-space:nowrap;text-decoration:none;}
+.wa-btn{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.3);border-radius:6px;color:#1a9e52;cursor:pointer;transition:all .2s;text-decoration:none;}.wa-btn:hover{background:var(--whatsapp);color:#fff;border-color:var(--whatsapp);}
 .wa-btn:hover{background:var(--whatsapp);color:#fff;border-color:var(--whatsapp);}
 .accordions{border-top:1px solid var(--border);}
 .acc-item{border-bottom:1px solid var(--border);}
@@ -426,22 +426,29 @@ header.scrolled .logo{font-size:1.25rem;letter-spacing:.06em;}
 @keyframes tabFadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 
 /* ═══ DIRECTORY CONTROLS ═══ */
-.dir-controls{padding:0 1.5rem .8rem;max-width:720px;margin:0 auto;}
-.dir-controls-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
-.sort-bar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
-.sort-label{font-size:.74rem;color:var(--muted);white-space:nowrap;}
-.sort-chip{font-size:.75rem;font-weight:500;padding:5px 12px;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;transition:all .18s;white-space:nowrap;}
+.dir-controls{padding:0 1.5rem .6rem;max-width:720px;margin:0 auto;}
+.dir-controls-row{
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+}
+.sort-group{display:flex;align-items:center;gap:5px;flex-shrink:0;}
+.sort-label{font-size:.72rem;color:var(--muted);white-space:nowrap;margin-right:2px;}
+.sort-chip{font-size:.74rem;font-weight:500;padding:5px 11px;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;transition:all .18s;white-space:nowrap;}
 .sort-chip:hover{border-color:var(--border2);color:var(--text);}
 .sort-chip.active{background:var(--accent);border-color:var(--accent);color:#fff;}
 [data-theme="dark"] .sort-chip.active{color:#111;}
 
+.controls-divider{width:1px;height:22px;background:var(--border);flex-shrink:0;}
+
+.view-sort-group{display:flex;align-items:center;gap:5px;flex-shrink:0;}
+
 .filter-toggle-btn{
   display:inline-flex;align-items:center;gap:6px;
   background:var(--surface);border:1px solid var(--border);
-  border-radius:20px;padding:6px 14px;
-  font-family:'Outfit',sans-serif;font-size:.78rem;font-weight:500;
+  border-radius:20px;padding:5px 13px;
+  font-family:'Outfit',sans-serif;font-size:.74rem;font-weight:500;
   color:var(--muted);cursor:pointer;transition:all .2s;
-  position:relative;white-space:nowrap;
+  position:relative;white-space:nowrap;flex-shrink:0;
+  margin-left:auto;
 }
 .filter-toggle-btn:hover{border-color:var(--border2);color:var(--text);}
 .filter-toggle-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
@@ -454,20 +461,13 @@ header.scrolled .logo{font-size:1.25rem;letter-spacing:.06em;}
 .filter-active-dot.hidden{display:none;}
 
 .filter-panel{
-  margin-top:10px;
-  padding:12px;
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:14px;
-  animation:filterPanelIn .18s ease;
+  margin-top:8px;padding:12px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;animation:filterPanelIn .18s ease;
 }
-@keyframes filterPanelIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
-.filter-panel .filters{
-  display:flex;flex-wrap:wrap;gap:7px;width:auto;
-}
-.filter-panel .filter-chip{
-  font-size:.78rem;
-}
+@keyframes filterPanelIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+.filter-panel .filters{display:flex;flex-wrap:wrap;gap:7px;width:auto;}
+.filter-panel .filter-chip{font-size:.77rem;}
 
 /* ═══ DIRECTORY VIEW TOGGLE ═══ */
 .view-toggle-wrap{display:flex;align-items:center;gap:6px;}
@@ -1053,7 +1053,7 @@ header.scrolled .logo{font-size:1.25rem;letter-spacing:.06em;}
           <span class="sort-label">Ordenar:</span>
           <div class="sort-chip active" data-sort="recent" onclick="setSort('recent')">Recientes</div>
           <div class="sort-chip" data-sort="az" onclick="setSort('az')">A → Z</div>
-          <div class="sort-chip" data-sort="industry" onclick="setSort('industry')">Industria</div>
+
         </div>
         <div class="view-toggle-wrap">
           <button class="view-btn active" id="viewList" onclick="setView('list')" title="Vista lista">
@@ -1853,8 +1853,8 @@ function cardHTML(m,i){
   const avContent=m.foto?`<img src="${m.foto}" referrerpolicy="no-referrer">`:`<span style="background:${grad};width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:.95rem;font-weight:600;color:#fff;">${initials(m.nombre+' '+m.apellido)}</span>`;
   const ind=INDUSTRIES.find(x=>x.key===m.industria);
   const indBadge=ind?`<span class="industry-badge">${ind.emoji} ${ind.label}</span>`:m.industria?`<span class="industry-badge">✨ ${esc(m.industria)}</span>`:'';
-  const liLink=m.linkedin?`<a class="card-link linkedin" href="${esc(m.linkedin)}" target="_blank" rel="noopener" title="LinkedIn"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg> in</a>`:'';
-  const wbLink=m.web?`<a class="card-link website" href="${esc(m.web)}" target="_blank" rel="noopener" title="Web"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10z"/></svg> web</a>`:'';
+  const liLink=m.linkedin?`<a class="card-link linkedin" href="${esc(m.linkedin)}" target="_blank" rel="noopener" title="LinkedIn"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>`:'';
+  const wbLink=m.web?`<a class="card-link website" href="${esc(m.web)}" target="_blank" rel="noopener" title="Web"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10z"/></svg></a>`:'';
   const waHref=buildWaHref(m);
   const waBtn=waHref?`<a class="wa-btn" href="${waHref}" target="_blank" rel="noopener" title="WhatsApp">${waIcon()}</a>`:'';
   const hasAccordion=m.trayectoria||m.formacion||m.hobbies||m.desafio||m.ayuda;
