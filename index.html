@@ -144,9 +144,7 @@ header{position:sticky;top:0;z-index:100;background:rgba(247,244,239,.94);backdr
 .search-bar input{width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:'Outfit',sans-serif;font-size:.9rem;padding:11px 14px 11px 40px;border-radius:12px;outline:none;transition:border-color .2s,box-shadow .2s;}
 .search-bar input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(43,74,63,.1);}
 .search-bar input::placeholder{color:var(--muted);}
-.filters-wrap{padding:0 1.5rem .8rem;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
-.filters-wrap::-webkit-scrollbar{display:none;}
-.filters{display:flex;gap:7px;width:max-content;}
+.filters{display:flex;flex-wrap:wrap;gap:7px;}
 .filter-chip{display:flex;align-items:center;gap:5px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:6px 13px;font-size:.78rem;font-weight:500;color:var(--muted);cursor:pointer;transition:all .18s;white-space:nowrap;user-select:none;}
 .filter-chip:hover{border-color:var(--border2);color:var(--text);}
 .filter-chip.active{background:var(--accent);border-color:var(--accent);color:#fff;}
@@ -277,15 +275,20 @@ header{position:sticky;top:0;z-index:100;background:rgba(247,244,239,.94);backdr
 
 /* ═══ PROFILE TAB INDICATOR ═══ */
 .tab-incomplete{position:relative;}
-.tab-incomplete::after{
-  content:'';position:absolute;top:8px;right:4px;
-  width:7px;height:7px;border-radius:50%;
-  background:var(--gold);border:1.5px solid var(--bg);
-  animation:pulse 2s infinite;
+.tab-incomplete::after,.nav-item.tab-incomplete::after{
+  content:'!';position:absolute;top:6px;right:-2px;
+  width:14px;height:14px;border-radius:50%;
+  background:#E8A020;border:2px solid var(--bg);
+  color:#fff;font-size:.5rem;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+  line-height:1;text-align:center;
+  animation:pulseGrow 1.8s ease-in-out infinite;
+  box-shadow:0 0 0 0 rgba(232,160,32,.6);
 }
-@keyframes pulse{
-  0%,100%{transform:scale(1);opacity:1;}
-  50%{transform:scale(1.35);opacity:.7;}
+@keyframes pulseGrow{
+  0%{transform:scale(1);box-shadow:0 0 0 0 rgba(232,160,32,.5);}
+  50%{transform:scale(1.15);box-shadow:0 0 0 5px rgba(232,160,32,.0);}
+  100%{transform:scale(1);box-shadow:0 0 0 0 rgba(232,160,32,.0);}
 }
 
 /* ═══ STATS ═══ */
@@ -421,6 +424,104 @@ header.scrolled .logo{font-size:1.25rem;letter-spacing:.06em;}
   animation:tabFadeIn .18s ease both;
 }
 @keyframes tabFadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* ═══ DIRECTORY CONTROLS ═══ */
+.dir-controls{padding:0 1.5rem .8rem;max-width:720px;margin:0 auto;}
+.dir-controls-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.sort-bar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.sort-label{font-size:.74rem;color:var(--muted);white-space:nowrap;}
+.sort-chip{font-size:.75rem;font-weight:500;padding:5px 12px;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;transition:all .18s;white-space:nowrap;}
+.sort-chip:hover{border-color:var(--border2);color:var(--text);}
+.sort-chip.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+[data-theme="dark"] .sort-chip.active{color:#111;}
+
+.filter-toggle-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:20px;padding:6px 14px;
+  font-family:'Outfit',sans-serif;font-size:.78rem;font-weight:500;
+  color:var(--muted);cursor:pointer;transition:all .2s;
+  position:relative;white-space:nowrap;
+}
+.filter-toggle-btn:hover{border-color:var(--border2);color:var(--text);}
+.filter-toggle-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+[data-theme="dark"] .filter-toggle-btn.active{color:#111;}
+.filter-active-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:#E8A020;border:1.5px solid var(--surface);
+  position:absolute;top:-2px;right:-2px;
+}
+.filter-active-dot.hidden{display:none;}
+
+.filter-panel{
+  margin-top:10px;
+  padding:12px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:14px;
+  animation:filterPanelIn .18s ease;
+}
+@keyframes filterPanelIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.filter-panel .filters{
+  display:flex;flex-wrap:wrap;gap:7px;width:auto;
+}
+.filter-panel .filter-chip{
+  font-size:.78rem;
+}
+
+/* ═══ DIRECTORY VIEW TOGGLE ═══ */
+.view-toggle-wrap{display:flex;align-items:center;gap:6px;}
+.view-btn{width:30px;height:30px;display:flex;align-items:center;justify-content:center;background:var(--surface);border:1px solid var(--border);border-radius:8px;cursor:pointer;color:var(--muted);transition:all .18s;}
+.view-btn:hover{border-color:var(--border2);color:var(--text);}
+.view-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+[data-theme="dark"] .view-btn.active{color:#111;}
+
+/* Grid view */
+.cards.grid-view{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;}
+.cards.grid-view .card{border-radius:16px;}
+.cards.grid-view .card-top{flex-direction:column;align-items:center;text-align:center;padding:1.2rem 1rem .8rem;}
+.cards.grid-view .avatar{width:64px;height:64px;border-radius:14px;font-size:1.4rem;margin-bottom:6px;}
+.cards.grid-view .card-info{width:100%;}
+.cards.grid-view .card-name-text{font-size:1rem;justify-content:center;}
+.cards.grid-view .card-company-row{justify-content:center;}
+.cards.grid-view .card-meta-row{justify-content:center;}
+.cards.grid-view .card-actions{position:absolute;top:8px;right:8px;flex-direction:column;}
+.cards.grid-view .card{position:relative;}
+.cards.grid-view .expand-btn{font-size:.68rem;padding:3px 8px;}
+@media(max-width:480px){.cards.grid-view{grid-template-columns:1fr 1fr;gap:8px;}
+.cards.grid-view .card-top{padding:.9rem .7rem .6rem;}
+.cards.grid-view .avatar{width:48px;height:48px;font-size:1.1rem;}}
+
+/* ═══ CONFETTI ═══ */
+.confetti-wrap{position:fixed;inset:0;pointer-events:none;z-index:1000;overflow:hidden;}
+.confetti-piece{position:absolute;width:8px;height:8px;border-radius:2px;animation:confettiFall linear forwards;}
+@keyframes confettiFall{
+  0%{transform:translateY(-20px) rotate(0deg);opacity:1;}
+  100%{transform:translateY(110vh) rotate(720deg);opacity:0;}
+}
+
+/* ═══ MEMBER COUNT BADGE ═══ */
+.member-count-badge{
+  font-size:.72rem;font-weight:600;color:var(--muted);
+  letter-spacing:.04em;
+  transition:all .3s ease;
+}
+.member-count-badge b{
+  font-family:'Cormorant Garamond',serif;
+  font-size:.95rem;color:var(--accent);
+  font-weight:700;
+}
+
+/* ═══ BUSINESS CARD GENERATOR ═══ */
+.bc-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:12px;font-family:'Outfit',sans-serif;font-size:.88rem;font-weight:500;color:var(--accent);cursor:pointer;transition:all .2s;margin-top:10px;}
+.bc-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent);}
+[data-theme="dark"] .bc-btn:hover{color:#111;}
+.bc-preview-wrap{margin-top:14px;display:none;}
+.bc-canvas-wrap{border-radius:12px;overflow:hidden;box-shadow:var(--shadow-lg);max-width:100%;}
+.bc-canvas-wrap canvas{display:block;max-width:100%;height:auto;}
+.bc-download-btn{width:100%;margin-top:10px;background:var(--accent);color:#fff;border:none;border-radius:12px;padding:12px;font-family:'Outfit',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer;transition:background .2s;}
+.bc-download-btn:hover{background:var(--accent2);}
+[data-theme="dark"] .bc-download-btn{color:#111;}
 .gender-selector{display:flex;gap:8px;}
 .gender-chip{flex:1;text-align:center;padding:9px 12px;background:var(--bg);border:1px solid var(--border);border-radius:10px;font-size:.86rem;font-weight:500;color:var(--muted);cursor:pointer;transition:all .18s;user-select:none;}
 .gender-chip:hover{border-color:var(--border2);color:var(--text);}
@@ -830,7 +931,10 @@ header.scrolled .logo{font-size:1.25rem;letter-spacing:.06em;}
 <!-- APP -->
 <div id="appScreen">
   <header>
-    <div class="logo">The Hub</div>
+    <div style="display:flex;align-items:baseline;gap:10px;">
+      <div class="logo">The Hub</div>
+      <div class="member-count-badge" id="memberCountBadge" style="display:none"></div>
+    </div>
     <div class="header-right">
       <span class="admin-badge" id="adminBadge" style="display:none">Admin</span>
       <div class="theme-toggle-wrap">
@@ -943,12 +1047,31 @@ header.scrolled .logo{font-size:1.25rem;letter-spacing:.06em;}
       <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       <input type="text" id="searchInput" placeholder="Buscar por nombre o empresa…" oninput="renderDirectory()">
     </div>
-    <div class="filters-wrap"><div class="filters" id="filterChips"></div></div>
-    <div class="sort-bar">
-      <span class="sort-label">Ordenar:</span>
-      <div class="sort-chip active" data-sort="recent" onclick="setSort('recent')">Más recientes</div>
-      <div class="sort-chip" data-sort="az" onclick="setSort('az')">A → Z</div>
-      <div class="sort-chip" data-sort="industry" onclick="setSort('industry')">Industria</div>
+    <div class="dir-controls">
+      <div class="dir-controls-row">
+        <div class="sort-bar">
+          <span class="sort-label">Ordenar:</span>
+          <div class="sort-chip active" data-sort="recent" onclick="setSort('recent')">Recientes</div>
+          <div class="sort-chip" data-sort="az" onclick="setSort('az')">A → Z</div>
+          <div class="sort-chip" data-sort="industry" onclick="setSort('industry')">Industria</div>
+        </div>
+        <div class="view-toggle-wrap">
+          <button class="view-btn active" id="viewList" onclick="setView('list')" title="Vista lista">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          </button>
+          <button class="view-btn" id="viewGrid" onclick="setView('grid')" title="Vista grilla">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          </button>
+        </div>
+        <button class="filter-toggle-btn" id="filterToggleBtn" onclick="toggleFilterPanel()">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+          Filtrar por industria
+          <span class="filter-active-dot hidden" id="filterActiveDot"></span>
+        </button>
+      </div>
+      <div class="filter-panel" id="filterPanel" style="display:none">
+        <div class="filters" id="filterChips"></div>
+      </div>
     </div>
     <div class="list-meta" id="listMeta"></div>
     <div class="cards" id="cardsContainer"><div id="skelCards"><div class="skeleton-card" style="animation-delay:0.0s"><div class="skel skel-avatar"></div><div class="skel-lines"><div class="skel skel-line" style="width:55%"></div><div class="skel skel-line" style="width:30%"></div></div><div class="skel skel-btn"></div></div><div class="skeleton-card" style="animation-delay:0.1s"><div class="skel skel-avatar"></div><div class="skel-lines"><div class="skel skel-line" style="width:62%"></div><div class="skel skel-line" style="width:35%"></div></div><div class="skel skel-btn"></div></div><div class="skeleton-card" style="animation-delay:0.2s"><div class="skel skel-avatar"></div><div class="skel-lines"><div class="skel skel-line" style="width:69%"></div><div class="skel skel-line" style="width:40%"></div></div><div class="skel skel-btn"></div></div><div class="skeleton-card" style="animation-delay:0.30000000000000004s"><div class="skel skel-avatar"></div><div class="skel-lines"><div class="skel skel-line" style="width:76%"></div><div class="skel skel-line" style="width:45%"></div></div><div class="skel skel-btn"></div></div><div class="skeleton-card" style="animation-delay:0.4s"><div class="skel skel-avatar"></div><div class="skel-lines"><div class="skel skel-line" style="width:83%"></div><div class="skel skel-line" style="width:50%"></div></div><div class="skel skel-btn"></div></div></div></div>
@@ -1057,6 +1180,14 @@ header.scrolled .logo{font-size:1.25rem;letter-spacing:.06em;}
       <div class="form-section-title"><span class="dot dot-desaf"></span> Desafíos actuales y comunidad</div>
       <div class="field" style="margin-bottom:12px"><textarea id="p_desafio" rows="3" placeholder="¿Cuál es tu mayor desafío hoy en tu carrera o empresa?"></textarea></div>
       <div class="field"><textarea id="p_ayuda" rows="2" placeholder="¿Qué tipo de apoyo, contacto o consejo te sería útil recibir y nos podemos ayudar entre todos a buscarlo?"></textarea></div>
+    </div>
+    <button class="bc-btn" onclick="generateBusinessCard()">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+      Generar tarjeta de presentación
+    </button>
+    <div class="bc-preview-wrap" id="bcPreviewWrap">
+      <div class="bc-canvas-wrap"><canvas id="bcCanvas" width="900" height="500"></canvas></div>
+      <button class="bc-download-btn" onclick="downloadCard()">⬇ Descargar tarjeta</button>
     </div>
     <button class="save-btn" id="saveBtn" onclick="saveProfile()">Guardar perfil</button>
   </div>
@@ -1203,7 +1334,7 @@ function buildIndustryChips(){
   document.getElementById('industrySelector').innerHTML=
     INDUSTRIES.map(i=>`<div class="ind-chip" data-key="${i.key}" onclick="toggleIndustry('${i.key}')">${i.emoji} ${i.label}</div>`).join('');
 }
-function setFilter(k){activeFilter=k;document.querySelectorAll('.filter-chip').forEach(c=>c.classList.toggle('active',c.dataset.key===k));renderDirectory();}
+function setFilter(k){activeFilter=k;document.querySelectorAll('.filter-chip').forEach(c=>c.classList.toggle('active',c.dataset.key===k));updateFilterDot();renderDirectory();}
 function toggleIndustry(k){selectedIndustry=selectedIndustry===k?'':k;document.querySelectorAll('.ind-chip').forEach(c=>c.classList.toggle('selected',c.dataset.key===selectedIndustry));document.getElementById('otraIndustriaField').style.display=selectedIndustry==='otros'?'block':'none';}
 
 // ═══ LINKEDIN ═══
@@ -1299,6 +1430,22 @@ function showApp(){
   renderLanding();
   renderDirectory();
   if(isAdmin) renderAdmin();
+
+  // Member count badge
+  const totalApproved=members.filter(m=>m.status==='approved').length;
+  const badge=document.getElementById('memberCountBadge');
+  if(badge&&totalApproved>0){
+    badge.style.display='inline';
+    badge.innerHTML=`<b>${totalApproved}</b> miembro${totalApproved!==1?'s':''}`;
+  }
+
+  // Confetti on first approved entry
+  const me2=members.find(m=>m.google_id===currentUser.google_id);
+  const confKey='hub_confetti_'+currentUser.google_id;
+  if(me2&&me2.status==='approved'&&!localStorage.getItem(confKey)){
+    localStorage.setItem(confKey,'1');
+    setTimeout(()=>launchConfetti(),700);
+  }
 }
 
 // ═══ SHEETS LOAD ═══
@@ -1904,7 +2051,17 @@ function renderNotifBell(){
   if(badge){badge.textContent=unread>9?'9+':unread;badge.classList.toggle('hidden',unread===0);}
   const list=document.getElementById('notifList');
   if(!list)return;
-  if(!notifications.length){list.innerHTML='<div class="notif-empty">Sin notificaciones todavía</div>';return;}
+  if(!notifications.length){
+    list.innerHTML=`<div class="notif-empty">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" style="margin:0 auto 8px;display:block;opacity:.4">
+        <path d="M18 4a9 9 0 0 1 9 9v4l2.5 4H6.5L9 17v-4a9 9 0 0 1 9-9z" stroke="var(--muted)" stroke-width="1.4" stroke-linejoin="round"/>
+        <path d="M15 27a3 3 0 0 0 6 0" stroke="var(--muted)" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>
+      <div style="font-size:.82rem;color:var(--muted);font-weight:500">Todo al día</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:3px;opacity:.7">No tenés notificaciones nuevas</div>
+    </div>`;
+    return;
+  }
   list.innerHTML=notifications.slice(0,20).map(n=>{
     const t=new Date(n.time);
     const ago=timeAgo(t);
@@ -2394,6 +2551,247 @@ function avatarHTML(m,size=40,radius=10){
   const grad=gradientForName((m.nombre||'')+(m.apellido||''));
   if(m.foto) return`<img src="${m.foto}" style="width:100%;height:100%;object-fit:cover" referrerpolicy="no-referrer">`;
   return`<div style="width:${size}px;height:${size}px;border-radius:${radius}px;background:${grad};color:#fff;font-family:'Cormorant Garamond',serif;font-size:${Math.round(size*.35)}px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${ini}</div>`;
+}
+
+// ═══ FILTER PANEL TOGGLE ═══
+function toggleFilterPanel(){
+  const panel=document.getElementById('filterPanel');
+  const btn=document.getElementById('filterToggleBtn');
+  const isOpen=panel.style.display!=='none';
+  panel.style.display=isOpen?'none':'block';
+  btn.classList.toggle('active',!isOpen);
+}
+function updateFilterDot(){
+  const dot=document.getElementById('filterActiveDot');
+  if(dot) dot.classList.toggle('hidden', activeFilter==='all');
+  // also update button text
+  const btn=document.getElementById('filterToggleBtn');
+  if(!btn)return;
+  const ind=INDUSTRIES.find(i=>i.key===activeFilter);
+  const label=ind?`${ind.emoji} ${ind.label}`:'Filtrar por industria';
+  btn.innerHTML=`<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>${label}<span class="filter-active-dot${activeFilter==='all'?' hidden':''}" id="filterActiveDot"></span>`;
+  btn.classList.toggle('active', activeFilter!=='all');
+}
+
+// ═══ VIEW TOGGLE ═══
+let currentView = 'list';
+function setView(v){
+  currentView = v;
+  const cards = document.getElementById('cardsContainer');
+  if(cards){ cards.classList.toggle('grid-view', v==='grid'); }
+  document.getElementById('viewList')?.classList.toggle('active', v==='list');
+  document.getElementById('viewGrid')?.classList.toggle('active', v==='grid');
+}
+
+// ═══ CONFETTI ═══
+function launchConfetti(){
+  const colors=['#1D9E75','#a07840','#D4537E','#7F77DD','#D85A30','#378ADD','#639922'];
+  const wrap=document.createElement('div');
+  wrap.className='confetti-wrap';
+  document.body.appendChild(wrap);
+  for(let i=0;i<80;i++){
+    const p=document.createElement('div');
+    p.className='confetti-piece';
+    p.style.cssText=`
+      left:${Math.random()*100}%;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      width:${6+Math.random()*6}px;
+      height:${6+Math.random()*6}px;
+      animation-duration:${1.8+Math.random()*1.4}s;
+      animation-delay:${Math.random()*.6}s;
+      border-radius:${Math.random()>0.5?'50%':'2px'};
+    `;
+    wrap.appendChild(p);
+  }
+  setTimeout(()=>wrap.remove(), 3500);
+}
+
+// ═══ BUSINESS CARD GENERATOR ═══
+function generateBusinessCard(){
+  const me=members.find(m=>m.google_id===currentUser.google_id);
+  const nombre=document.getElementById('p_nombre')?.value||me?.nombre||currentUser.name.split(' ')[0];
+  const apellido=document.getElementById('p_apellido')?.value||me?.apellido||'';
+  const empresa=document.getElementById('p_empresa')?.value||me?.empresa||'';
+  const liRaw=document.getElementById('p_linkedin')?.value||liSlug(me?.linkedin||'');
+  const web=document.getElementById('p_web')?.value||me?.web||'';
+  const ind=INDUSTRIES.find(i=>i.key===(me?.industria||selectedIndustry));
+
+  // Phone for WA
+  const country=document.getElementById('p_phone_country')?.value||'';
+  const local=(document.getElementById('p_phone_local')?.value||'').replace(/\D/g,'').replace(/^0/,'').replace(/^15/,'');
+  const waNum=local?country+local:'';
+
+  const canvas=document.getElementById('bcCanvas');
+  const ctx=canvas.getContext('2d');
+  const W=900,H=500;
+  canvas.width=W; canvas.height=H;
+
+  // Industry color accent
+  const indColors={finanzas:'#1D9E75',legales:'#BA7517',agro:'#639922',marketing:'#7F77DD',
+    audiovisual:'#D4537E',construccion:'#D85A30',gastronomia:'#E24B4A',indumentaria:'#993556',
+    industrial:'#378ADD',politica:'#5F5E5A',comunicacion:'#0F6E56',otros:'#888780'};
+  const accentColor=indColors[me?.industria||selectedIndustry]||'#2b4a3f';
+
+  // Background
+  ctx.fillStyle='#f7f4ef';
+  ctx.fillRect(0,0,W,H);
+
+  // Left accent bar
+  ctx.fillStyle=accentColor;
+  ctx.fillRect(0,0,8,H);
+
+  // Top accent line
+  ctx.fillStyle=accentColor;
+  ctx.globalAlpha=0.12;
+  ctx.fillRect(8,0,W-8,4);
+  ctx.globalAlpha=1;
+
+  // Hub watermark top right
+  ctx.font='700 13px Georgia,serif';
+  ctx.fillStyle=accentColor;
+  ctx.globalAlpha=0.25;
+  ctx.textAlign='right';
+  ctx.fillText('THE HUB', W-40, 36);
+  ctx.globalAlpha=1;
+
+  // Avatar circle
+  const foto=profilePhoto||me?.foto||null;
+  const avX=72, avY=H/2, avR=56;
+
+  if(foto){
+    return new Promise(resolve=>{
+      const img=new Image();
+      img.crossOrigin='anonymous';
+      img.onload=()=>{
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(avX,avY,avR,0,Math.PI*2);
+        ctx.clip();
+        ctx.drawImage(img,avX-avR,avY-avR,avR*2,avR*2);
+        ctx.restore();
+        drawCardText(ctx,W,H,avX,avY,avR,accentColor,nombre,apellido,empresa,ind,liRaw,web,waNum);
+        showCardPreview();
+        resolve();
+      };
+      img.onerror=()=>{
+        drawAvatarCircle(ctx,avX,avY,avR,accentColor,initials(nombre+' '+apellido));
+        drawCardText(ctx,W,H,avX,avY,avR,accentColor,nombre,apellido,empresa,ind,liRaw,web,waNum);
+        showCardPreview();
+        resolve();
+      };
+      img.src=foto;
+    });
+  } else {
+    drawAvatarCircle(ctx,avX,avY,avR,accentColor,initials(nombre+' '+apellido));
+    drawCardText(ctx,W,H,avX,avY,avR,accentColor,nombre,apellido,empresa,ind,liRaw,web,waNum);
+    showCardPreview();
+  }
+}
+
+function drawAvatarCircle(ctx,x,y,r,color,ini){
+  ctx.beginPath();
+  ctx.arc(x,y,r,0,Math.PI*2);
+  ctx.fillStyle=color;
+  ctx.fill();
+  ctx.font=`700 ${Math.round(r*.7)}px 'Georgia',serif`;
+  ctx.fillStyle='#fff';
+  ctx.textAlign='center';
+  ctx.textBaseline='middle';
+  ctx.fillText(ini,x,y+2);
+  ctx.textBaseline='alphabetic';
+}
+
+function drawCardText(ctx,W,H,avX,avY,avR,accent,nombre,apellido,empresa,ind,li,web,wa){
+  const left=avX+avR+36;
+  ctx.textAlign='left';
+
+  // Name
+  ctx.font="700 42px 'Georgia',serif";
+  ctx.fillStyle='#1a1814';
+  ctx.fillText(`${nombre} ${apellido}`, left, H/2-32);
+
+  // Company
+  if(empresa){
+    ctx.font="400 18px 'Arial',sans-serif";
+    ctx.fillStyle='#a07840';
+    ctx.fillText(empresa.toUpperCase(), left, H/2+2);
+  }
+
+  // Industry badge
+  if(ind){
+    ctx.font="500 15px 'Arial',sans-serif";
+    ctx.fillStyle=accent;
+    ctx.fillText(`${ind.emoji}  ${ind.label}`, left, H/2+30);
+  }
+
+  // Divider
+  ctx.strokeStyle=accent;
+  ctx.globalAlpha=.2;
+  ctx.lineWidth=1;
+  ctx.beginPath();
+  ctx.moveTo(left, H/2+46);
+  ctx.lineTo(W-40, H/2+46);
+  ctx.stroke();
+  ctx.globalAlpha=1;
+
+  // Links row
+  ctx.font="400 14px 'Arial',sans-serif";
+  ctx.fillStyle='#5a554e';
+  let lx=left;
+  const ly=H/2+72;
+  if(li){
+    ctx.fillStyle=accent;
+    ctx.fillText(`linkedin.com/in/${li}`, lx, ly);
+    lx+=ctx.measureText(`linkedin.com/in/${li}`).width+24;
+  }
+  if(web){
+    ctx.fillStyle='#5a554e';
+    ctx.fillText(web, lx, ly);
+    lx+=ctx.measureText(web).width+24;
+  }
+  if(wa){
+    ctx.fillStyle='#1a9e52';
+    ctx.fillText(`+${wa}`, lx, ly);
+  }
+
+  // QR placeholder (simple grid pattern as stand-in)
+  const qx=W-110, qy=H/2-50, qs=100;
+  ctx.strokeStyle=accent;
+  ctx.globalAlpha=.15;
+  ctx.strokeRect(qx,qy,qs,qs);
+  ctx.globalAlpha=1;
+  ctx.font="10px 'Arial',sans-serif";
+  ctx.fillStyle=accent;
+  ctx.globalAlpha=.5;
+  ctx.textAlign='center';
+  ctx.fillText('QR próximamente',qx+qs/2,qy+qs/2+4);
+  ctx.globalAlpha=1;
+  ctx.textAlign='left';
+
+  // Bottom watermark
+  ctx.font="600 11px 'Arial',sans-serif";
+  ctx.fillStyle=accent;
+  ctx.globalAlpha=.4;
+  ctx.textAlign='right';
+  ctx.fillText('thehub.community',W-40,H-20);
+  ctx.globalAlpha=1;
+}
+
+function showCardPreview(){
+  const wrap=document.getElementById('bcPreviewWrap');
+  if(wrap){wrap.style.display='block';wrap.scrollIntoView({behavior:'smooth',block:'nearest'});}
+}
+
+function downloadCard(){
+  const canvas=document.getElementById('bcCanvas');
+  if(!canvas)return;
+  const me=members.find(m=>m.google_id===currentUser.google_id);
+  const name=(me?.nombre||'perfil').toLowerCase().replace(/\s/g,'-');
+  const link=document.createElement('a');
+  link.download=`thehub-${name}.png`;
+  link.href=canvas.toDataURL('image/png');
+  link.click();
+  showToast('✓ Tarjeta descargada');
 }
 // ═══ UTILS ═══
 function today(){return new Date().toISOString().slice(0,10);}
