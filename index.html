@@ -1865,15 +1865,19 @@ function cardHTML(m,i){
     <div class="card-top">
       <div class="avatar" onclick="openPhotoModal(members.find(x=>x.google_id==='${gid}'))">${avContent}</div>
       <div class="card-info">
-        <div class="card-row-1">
-          <span class="card-name-text">${esc(m.nombre)} ${esc(m.apellido)}${isMe?'<span class="me-tag">Yo</span>':''}</span>
-          ${m.empresa?`<span class="card-sep">·</span><span class="card-company">${esc(m.empresa)}</span>`:''}
-          ${indBadge}
-        </div>
-        <div class="card-row-2">
-          ${(()=>{const age=calcAge(m.dob||m.edad)||m.edad;return age?`<span class="card-age">${typeof age==='number'?age+' años':esc(age)}</span>`:''})()}
-          ${liLink}${wbLink}${waBtn}
-        </div>
+         <div class="card-row-1">
+           <span class="card-name-text">${esc(m.nombre)} ${esc(m.apellido)}${isMe?'<span class="me-tag">Yo</span>':''}</span>
+         </div>
+         <div class="card-row-2">
+           ${m.empresa?`<span class="card-company">${esc(m.empresa)}</span>`:''}
+           ${m.empresa&&indBadge?'<span class="card-sep">·</span>':''}
+           ${indBadge}
+         </div>
+         <div class="card-row-3">
+           ${(()=>{const age=calcAge(m.dob||m.edad)||m.edad;return age?`<span class="card-age">${typeof age==='number'?age+' años':esc(age)}</span>`:''})()}
+           ${(liLink||wbLink||waBtn)&&(calcAge(m.dob||m.edad)||m.edad)?'<span class="card-sep">·</span>':''}
+           ${liLink}${wbLink}${waBtn}
+         </div>
       </div>
       <div class="card-actions">
         ${isMe?`<button class="edit-btn" onclick="showTab('profile')">Editar</button>`:''}
