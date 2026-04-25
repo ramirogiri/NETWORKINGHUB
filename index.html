@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>The Hub — Comunidad</title>
+<title>Valor Agregado — Comunidad</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://accounts.google.com/gsi/client"></script>
 <style>
@@ -522,6 +522,334 @@ header.scrolled .logo{font-size:1.25rem;letter-spacing:.06em;}
 .bc-download-btn{width:100%;margin-top:10px;background:var(--accent);color:#fff;border:none;border-radius:12px;padding:12px;font-family:'Outfit',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer;transition:background .2s;}
 .bc-download-btn:hover{background:var(--accent2);}
 [data-theme="dark"] .bc-download-btn{color:#111;}
+
+/* ═══ MANIFESTO ═══ */
+#manifestoTab{
+  display:none;
+  min-height:100vh;
+  background:var(--bg);
+  padding-bottom:6rem;
+}
+
+/* Hero section */
+.mf-hero{
+  position:relative;
+  overflow:hidden;
+  padding:3.5rem 1.5rem 3rem;
+  text-align:center;
+  background:linear-gradient(160deg,var(--accent) 0%,#1a3028 100%);
+  color:#fff;
+}
+.mf-hero::before{
+  content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.mf-hero-eyebrow{
+  font-size:.72rem;font-weight:600;letter-spacing:.25em;text-transform:uppercase;
+  color:rgba(255,255,255,.5);margin-bottom:.8rem;
+}
+.mf-hero-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.8rem,8vw,5rem);
+  font-weight:700;
+  line-height:1;
+  letter-spacing:-.02em;
+  color:#fff;
+  margin-bottom:.6rem;
+}
+.mf-hero-subtitle{
+  font-size:.9rem;color:rgba(255,255,255,.6);
+  letter-spacing:.08em;text-transform:uppercase;
+  font-weight:500;
+}
+.mf-hero-line{
+  width:40px;height:2px;
+  background:var(--gold);
+  margin:.8rem auto 0;
+  border-radius:2px;
+}
+
+/* Community name in hero */
+.mf-hero-community{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1rem;font-style:italic;
+  color:var(--gold2);
+  margin-top:.5rem;
+}
+
+/* Commandments list */
+.mf-list{
+  max-width:680px;margin:0 auto;
+  padding:2.5rem 1.5rem 1rem;
+  display:flex;flex-direction:column;gap:0;
+}
+
+.mf-item{
+  position:relative;
+  padding:2rem 0 2rem 0;
+  border-bottom:1px solid var(--border);
+  cursor:default;
+  transition:padding-left .3s ease;
+  overflow:hidden;
+}
+.mf-item:last-child{border-bottom:none;}
+
+/* Hover accent bar */
+.mf-item::before{
+  content:'';
+  position:absolute;left:0;top:0;bottom:0;
+  width:0;
+  background:var(--accent);
+  transition:width .25s ease;
+  border-radius:0 3px 3px 0;
+}
+.mf-item:hover::before{width:3px;}
+.mf-item:hover{padding-left:18px;}
+
+/* Number */
+.mf-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:3.5rem;
+  font-weight:700;
+  line-height:1;
+  color:var(--border2);
+  letter-spacing:-.03em;
+  transition:color .25s,transform .25s;
+  display:block;
+  margin-bottom:.4rem;
+  user-select:none;
+}
+.mf-item:hover .mf-num{
+  color:var(--accent);
+  transform:scale(1.05) translateX(2px);
+}
+[data-theme="dark"] .mf-item:hover .mf-num{color:var(--accent);}
+
+/* Text */
+.mf-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.3rem,3.5vw,1.7rem);
+  font-weight:600;
+  line-height:1.35;
+  color:var(--text);
+  letter-spacing:-.01em;
+  transition:color .25s;
+}
+.mf-item:hover .mf-text{color:var(--accent);}
+[data-theme="dark"] .mf-item:hover .mf-text{color:var(--accent);}
+
+/* Quote mark decoration on hover */
+.mf-item::after{
+  content:'"';
+  position:absolute;right:0;top:1.5rem;
+  font-family:'Cormorant Garamond',serif;
+  font-size:5rem;line-height:1;
+  color:var(--border);
+  opacity:0;
+  transition:opacity .3s,transform .3s;
+  transform:translateX(10px);
+  pointer-events:none;
+  user-select:none;
+}
+.mf-item:hover::after{opacity:1;transform:translateX(0);}
+
+/* Footer section */
+.mf-footer{
+  max-width:680px;margin:0 auto;
+  padding:2.5rem 1.5rem 1rem;
+  text-align:center;
+}
+.mf-footer-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem;font-style:italic;
+  color:var(--muted);
+  margin-bottom:2rem;
+  line-height:1.7;
+}
+.mf-footer-text strong{color:var(--accent);font-style:normal;}
+
+.mf-home-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--accent);color:#fff;
+  border:none;border-radius:12px;
+  padding:14px 28px;
+  font-family:'Outfit',sans-serif;font-size:.92rem;font-weight:600;
+  cursor:pointer;transition:background .2s,transform .15s;
+  letter-spacing:.02em;
+  text-decoration:none;
+}
+.mf-home-btn:hover{background:var(--accent2);transform:translateY(-2px);}
+[data-theme="dark"] .mf-home-btn{color:#111;}
+
+/* Pending state — show manifesto before approval */
+.mf-pending-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(232,160,32,.12);
+  border:1px solid rgba(232,160,32,.3);
+  color:#a07010;
+  font-size:.76rem;font-weight:500;
+  padding:5px 14px;border-radius:20px;
+  margin-bottom:1.5rem;
+}
+[data-theme="dark"] .mf-pending-badge{color:var(--gold);}
+
+/* ═══ MANIFIESTO ═══ */
+#manifiestoTab{display:none;padding:0;overflow:hidden;}
+
+.manif-hero{
+  position:relative;
+  padding:3.5rem 2rem 2.5rem;
+  text-align:center;
+  background:var(--accent);
+  overflow:hidden;
+}
+.manif-hero::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(
+    45deg,
+    transparent,transparent 40px,
+    rgba(255,255,255,.025) 40px,rgba(255,255,255,.025) 41px
+  );
+}
+.manif-hero::after{
+  content:'';position:absolute;bottom:-1px;left:0;right:0;height:40px;
+  background:var(--bg);
+  clip-path:ellipse(55% 100% at 50% 100%);
+}
+.manif-eyebrow{
+  font-size:.72rem;font-weight:600;letter-spacing:.25em;
+  text-transform:uppercase;color:rgba(255,255,255,.6);
+  margin-bottom:.8rem;
+}
+.manif-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.4rem,8vw,4rem);
+  font-weight:700;color:#fff;
+  line-height:1;letter-spacing:-.02em;
+  margin-bottom:.8rem;
+  position:relative;z-index:1;
+}
+.manif-subtitle{
+  font-size:.9rem;color:rgba(255,255,255,.65);
+  max-width:380px;margin:0 auto;line-height:1.65;
+  position:relative;z-index:1;
+}
+
+.manif-body{
+  max-width:680px;margin:0 auto;
+  padding:2.5rem 1.5rem 1rem;
+}
+
+.manif-item{
+  position:relative;
+  display:flex;align-items:flex-start;gap:0;
+  margin-bottom:1.2rem;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:16px;
+  overflow:hidden;
+  cursor:default;
+  transition:transform .25s cubic-bezier(.34,1.3,.64,1),
+             box-shadow .25s ease,
+             border-color .25s ease;
+}
+.manif-item:hover{
+  transform:translateX(6px) translateY(-2px);
+  box-shadow:0 10px 32px rgba(0,0,0,.1);
+  border-color:var(--accent);
+}
+.manif-item::before{
+  content:'';
+  position:absolute;left:0;top:0;bottom:0;
+  width:3px;
+  background:var(--accent);
+  transform:scaleY(0);
+  transform-origin:bottom;
+  transition:transform .3s ease;
+}
+.manif-item:hover::before{transform:scaleY(1);}
+
+.manif-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.8rem;font-weight:700;
+  color:var(--border2);
+  line-height:1;
+  padding:.9rem 1rem .9rem 1.3rem;
+  min-width:72px;text-align:center;
+  transition:color .25s;
+  flex-shrink:0;
+  align-self:center;
+}
+.manif-item:hover .manif-num{color:var(--accent);}
+
+.manif-content{
+  padding:1rem 1.3rem 1rem .4rem;
+  border-left:1px solid var(--border);
+  flex:1;
+  transition:border-color .25s;
+}
+.manif-item:hover .manif-content{border-color:rgba(43,74,63,.15);}
+
+.manif-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.15rem;font-weight:600;
+  color:var(--text);line-height:1.4;
+  transition:color .2s;
+}
+.manif-item:hover .manif-text{color:var(--accent);}
+
+.manif-glyph{
+  font-size:1.4rem;
+  margin-bottom:4px;
+  display:block;
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1);
+}
+.manif-item:hover .manif-glyph{transform:scale(1.25);}
+
+.manif-divider{
+  display:flex;align-items:center;gap:16px;
+  margin:2rem 0 1.5rem;
+  color:var(--muted);font-size:.72rem;
+  letter-spacing:.12em;text-transform:uppercase;
+}
+.manif-divider::before,.manif-divider::after{
+  content:'';flex:1;height:1px;background:var(--border);
+}
+
+.manif-footer{
+  text-align:center;
+  padding:1.5rem 1.5rem 3rem;
+  max-width:680px;margin:0 auto;
+}
+.manif-signature{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-size:1.05rem;
+  color:var(--muted);margin-bottom:1.8rem;line-height:1.6;
+}
+.manif-home-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--accent);color:#fff;
+  border:none;border-radius:14px;
+  padding:13px 28px;
+  font-family:'Outfit',sans-serif;font-size:.92rem;font-weight:600;
+  cursor:pointer;transition:background .2s,transform .2s;
+  text-decoration:none;
+}
+.manif-home-btn:hover{background:var(--accent2);transform:translateY(-2px);}
+[data-theme="dark"] .manif-home-btn{color:#111;}
+
+/* Pending screen manifiesto */
+.pending-manif-link{
+  display:inline-flex;align-items:center;gap:6px;
+  margin-top:1.2rem;
+  background:rgba(43,74,63,.08);
+  border:1px solid rgba(43,74,63,.2);
+  border-radius:20px;padding:7px 16px;
+  font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:500;
+  color:var(--accent);cursor:pointer;transition:all .2s;
+}
+.pending-manif-link:hover{background:var(--accent);color:#fff;}
+[data-theme="dark"] .pending-manif-link:hover{color:#111;}
 .gender-selector{display:flex;gap:8px;}
 .gender-chip{flex:1;text-align:center;padding:9px 12px;background:var(--bg);border:1px solid var(--border);border-radius:10px;font-size:.86rem;font-weight:500;color:var(--muted);cursor:pointer;transition:all .18s;user-select:none;}
 .gender-chip:hover{border-color:var(--border2);color:var(--text);}
@@ -723,8 +1051,8 @@ header.scrolled .logo{font-size:1.25rem;letter-spacing:.06em;}
 <!-- LOGIN -->
 <div id="loginScreen">
   <div class="login-deco"></div>
-  <div class="login-logo">The Hub</div>
-  <div class="login-sub">Comunidad de emprendedores</div>
+  <div class="login-logo">Valor Agregado</div>
+  <div class="login-sub">Comunidad de jóvenes que hacen</div>
   <div class="login-card">
     <h2>Bienvenido</h2>
     <p>Ingresá con tu cuenta de Google para acceder a la comunidad, los eventos y el directorio de miembros.</p>
@@ -756,7 +1084,7 @@ header.scrolled .logo{font-size:1.25rem;letter-spacing:.06em;}
     <div id="obStep1">
       <div class="ob-header">
         <div class="ob-step-label">Paso 1 de 4</div>
-        <div class="ob-title">Bienvenido a The Hub</div>
+        <div class="ob-title">Bienvenido a Valor Agregado</div>
         <div class="ob-subtitle">Antes de arrancar, ¿cómo preferís ver la app?</div>
       </div>
       <div class="ob-theme-row">
@@ -924,6 +1252,13 @@ header.scrolled .logo{font-size:1.25rem;letter-spacing:.06em;}
     <p>Tu aplicación ya está en nuestras manos. A la brevedad un administrador va a revisar tu información y, en caso de ser admitido, <strong>acá mismo vas a poder ver el directorio de miembros, los próximos eventos y las novedades de la comunidad.</strong></p>
     <div class="pending-divider"></div>
     <p class="pending-hint">Este espacio está pensado para over-achievers que se potencian mutuamente. Gracias por querer ser parte — ya estamos en contacto.</p>
+    <button class="mf-home-btn" style="margin-bottom:1rem;width:100%;justify-content:center;" onclick="showPendingManifesto()">
+      📜 Leer el Manifiesto de la comunidad
+    </button>
+    <button class="pending-manif-link" onclick="showPendingManif()">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Leer el Manifiesto de la comunidad
+    </button>
     <button class="pending-logout" onclick="logout()">Cerrar sesión</button>
   </div>
 </div>
@@ -932,7 +1267,7 @@ header.scrolled .logo{font-size:1.25rem;letter-spacing:.06em;}
 <div id="appScreen">
   <header>
     <div style="display:flex;align-items:baseline;gap:10px;">
-      <div class="logo">The Hub</div>
+      <div class="logo">Valor Agregado</div>
       <div class="member-count-badge" id="memberCountBadge" style="display:none"></div>
     </div>
     <div class="header-right">
@@ -955,6 +1290,8 @@ header.scrolled .logo{font-size:1.25rem;letter-spacing:.06em;}
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
       Comunidad
     </div>
+    <div class="tab" id="tabMf" onclick="showTab('manifesto')">📜 Manifiesto</div>
+    <div class="tab" id="tabManif" onclick="showTab('manifiesto')">📜 Manifiesto</div>
     <div class="tab" id="tabAdmin" style="display:none" onclick="showTab('admin')">⚙️ Admin</div>
     <div class="tab" id="tabStats" style="display:none" onclick="showTab('stats')">📊 Stats</div>
     <div style="flex:1"></div>
@@ -1192,6 +1529,102 @@ header.scrolled .logo{font-size:1.25rem;letter-spacing:.06em;}
     <button class="save-btn" id="saveBtn" onclick="saveProfile()">Guardar perfil</button>
   </div>
 
+
+  <!-- MANIFIESTO -->
+  <div id="manifestoTab">
+    <div class="mf-hero">
+      <div class="mf-hero-eyebrow">Documento fundacional</div>
+      <div class="mf-hero-title">Manifiesto</div>
+      <div class="mf-hero-subtitle">Los valores que nos definen</div>
+      <div class="mf-hero-community">Valor Agregado</div>
+      <div class="mf-hero-line"></div>
+    </div>
+
+    <div class="mf-list" id="mfList">
+      <!-- rendered by JS -->
+    </div>
+
+    <div class="mf-footer">
+      <div class="mf-footer-text">
+        Estos son los principios que nos unen.<br>
+        <strong>Bienvenido a Valor Agregado.</strong>
+      </div>
+      <button class="mf-home-btn" onclick="showTab('landing')">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Ir al home
+      </button>
+    </div>
+  </div>
+
+
+  <!-- MANIFIESTO -->
+  <div id="manifiestoTab">
+    <div class="manif-hero">
+      <div class="manif-eyebrow">Valor Agregado · Comunidad</div>
+      <div class="manif-title">Manifiesto</div>
+      <div class="manif-subtitle">Los principios que nos unen. La razón por la que estamos acá.</div>
+    </div>
+
+    <div class="manif-body">
+      <div class="manif-divider">Nuestros mandamientos</div>
+
+      <div class="manif-item">
+        <div class="manif-num">01</div>
+        <div class="manif-content">
+          <span class="manif-glyph">💰</span>
+          <div class="manif-text">Hacer negocios y guita, mucha guita</div>
+        </div>
+      </div>
+
+      <div class="manif-item">
+        <div class="manif-num">02</div>
+        <div class="manif-content">
+          <span class="manif-glyph">🍎</span>
+          <div class="manif-text">No comprar manzanas podridas</div>
+        </div>
+      </div>
+
+      <div class="manif-item">
+        <div class="manif-num">03</div>
+        <div class="manif-content">
+          <span class="manif-glyph">🤝</span>
+          <div class="manif-text">Generar sentido de responsabilidad con la comunidad y el país en el que vivimos. Y por qué no construir una visión común.</div>
+        </div>
+      </div>
+
+      <div class="manif-item">
+        <div class="manif-num">04</div>
+        <div class="manif-content">
+          <span class="manif-glyph">🌍</span>
+          <div class="manif-text">Mantener una mirada global y creérnosla para importar-exportar, y competir internacionalmente</div>
+        </div>
+      </div>
+
+      <div class="manif-item">
+        <div class="manif-num">05</div>
+        <div class="manif-content">
+          <span class="manif-glyph">📚</span>
+          <div class="manif-text">Formarnos constantemente para mejorar calidad de bienes y/o servicios, la marca personal, y el propio liderazgo</div>
+        </div>
+      </div>
+
+      <div class="manif-item">
+        <div class="manif-num">06</div>
+        <div class="manif-content">
+          <span class="manif-glyph">🚀</span>
+          <div class="manif-text">Start Small — Think Big</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="manif-footer">
+      <div class="manif-signature">"Somos jóvenes que hacen.<br>Que construyen. Que se ayudan a crecer."</div>
+      <button class="manif-home-btn" onclick="showTab('landing')">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Ir al home
+      </button>
+    </div>
+  </div>
   <!-- STATS -->
   <div id="statsTab" style="display:none;padding:1.5rem;">
     <div id="statsContent"></div>
@@ -1210,6 +1643,10 @@ header.scrolled .logo{font-size:1.25rem;letter-spacing:.06em;}
   </div>
 
   <nav class="bottom-nav">
+    <div class="nav-item" id="navManif" onclick="showTab('manifiesto')">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      Manifiesto
+    </div>
     <div class="nav-item active" id="navLand" onclick="showTab('landing')">
       <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       Inicio
@@ -1221,6 +1658,10 @@ header.scrolled .logo{font-size:1.25rem;letter-spacing:.06em;}
     <div class="nav-item" id="navProf" onclick="showTab('profile')">
       <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       Perfil
+    </div>
+    <div class="nav-item" id="navMf" onclick="showTab('manifesto')">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      Manifiesto
     </div>
     <div class="nav-item" id="navStats" style="display:none" onclick="showTab('stats')">
       <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
@@ -1986,12 +2427,13 @@ async function saveProfile(){
 function showTab(tab){
   if(tab==='profile') setTimeout(renderProfileCompletion,50);
   if(tab==='stats') setTimeout(renderStats,50);
-  ['landing','directory','profile','admin','stats'].forEach(t=>{
+  if(tab==='manifesto') setTimeout(renderManifesto,50);
+  ['landing','directory','profile','admin','stats','manifesto'].forEach(t=>{
     const el=document.getElementById(t+'Tab');if(el)el.style.display='none';
   });
   document.getElementById(tab+'Tab').style.display='block';
-  const tabMap={landing:'Land',directory:'Dir',profile:'Prof',admin:'Admin',stats:'Stats'};
-  ['Land','Dir','Prof','Admin','Stats'].forEach(t=>{
+  const tabMap={landing:'Land',directory:'Dir',profile:'Prof',admin:'Admin',stats:'Stats',manifesto:'Mf'};
+  ['Land','Dir','Prof','Admin','Stats','Mf'].forEach(t=>{
     document.getElementById('tab'+t)?.classList.remove('active');
     document.getElementById('nav'+t)?.classList.remove('active');
   });
@@ -2456,8 +2898,24 @@ async function obFinish(){
     if(isAdmin){
       await loadAllSheets();
       showApp();
+      setTimeout(()=>showTab('manifiesto'),300);
     } else {
-      document.getElementById('pendingScreen').style.display='flex';
+      // Show manifiesto before pending screen
+      document.getElementById('appScreen').style.display='block';
+      document.querySelector('.tabs').style.display='none';
+      document.querySelector('.bottom-nav').style.display='none';
+      showTab('manifiesto');
+      // Replace "Ir al home" with "Continuar"
+      const homeBtn=document.querySelector('.manif-home-btn');
+      if(homeBtn){
+        homeBtn.innerHTML='<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg> Continuar';
+        homeBtn.onclick=()=>{
+          document.getElementById('appScreen').style.display='none';
+          document.querySelector('.tabs').style.display='';
+          document.querySelector('.bottom-nav').style.display='';
+          document.getElementById('pendingScreen').style.display='flex';
+        };
+      }
     }
   } catch(e){
     console.error(e);
@@ -2655,7 +3113,7 @@ function generateBusinessCard(){
   ctx.fillStyle=accentColor;
   ctx.globalAlpha=0.25;
   ctx.textAlign='right';
-  ctx.fillText('THE HUB', W-40, 36);
+  ctx.fillText('VALOR AGREGADO', W-40, 36);
   ctx.globalAlpha=1;
 
   // Avatar circle
@@ -2777,7 +3235,7 @@ function drawCardText(ctx,W,H,avX,avY,avR,accent,nombre,apellido,empresa,ind,li,
   ctx.fillStyle=accent;
   ctx.globalAlpha=.4;
   ctx.textAlign='right';
-  ctx.fillText('thehub.community',W-40,H-20);
+  ctx.fillText('valoragregado.community',W-40,H-20);
   ctx.globalAlpha=1;
 }
 
@@ -2792,10 +3250,88 @@ function downloadCard(){
   const me=members.find(m=>m.google_id===currentUser.google_id);
   const name=(me?.nombre||'perfil').toLowerCase().replace(/\s/g,'-');
   const link=document.createElement('a');
-  link.download=`thehub-${name}.png`;
+  link.download=`valoragregado-${name}.png`;
   link.href=canvas.toDataURL('image/png');
   link.click();
   showToast('✓ Tarjeta descargada');
+}
+
+// ═══ MANIFIESTO ═══
+const MANIFESTO = [
+  "Hacer negocios y guita, mucha guita.",
+  "No comprar manzanas podridas.",
+  "Generar sentido de responsabilidad con la comunidad y el país en el que vivimos. Y por qué no construir una visión común.",
+  "Mantener una mirada global y creérnosla para importar-exportar, y competir internacionalmente.",
+  "Formarnos constantemente para mejorar calidad de bienes y/o servicios, la marca personal, y el propio liderazgo.",
+  "Start Small — Think Big.",
+];
+
+function renderManifesto(){
+  const list = document.getElementById('mfList');
+  if(!list || list.children.length > 0) return;
+  list.innerHTML = MANIFESTO.map((text, i) => `
+    <div class="mf-item" style="animation:fadeUp .4s ease ${i * .08}s both">
+      <span class="mf-num">0${i+1}</span>
+      <div class="mf-text">${text}</div>
+    </div>
+  `).join('');
+}
+
+// ═══ PENDING MANIFESTO ═══
+function showPendingManifesto(){
+  document.getElementById('pendingScreen').style.display='none';
+  // Show a standalone manifesto view
+  const div=document.createElement('div');
+  div.id='pendingMfScreen';
+  div.style.cssText='min-height:100vh;background:var(--bg);';
+  div.innerHTML=`
+    <div class="mf-hero">
+      <div class="mf-hero-eyebrow">Documento fundacional</div>
+      <div class="mf-hero-title">Manifiesto</div>
+      <div class="mf-hero-subtitle">Los valores que nos definen</div>
+      <div class="mf-hero-community">Valor Agregado</div>
+      <div class="mf-hero-line"></div>
+    </div>
+    <div style="max-width:680px;margin:1.5rem auto;padding:0 1.5rem;">
+      <div class="mf-pending-badge">⏳ Tu solicitud está siendo revisada</div>
+    </div>
+    <div class="mf-list">${MANIFESTO.map((t,i)=>`
+      <div class="mf-item" style="animation:fadeUp .4s ease ${i*.08}s both">
+        <span class="mf-num">0${i+1}</span>
+        <div class="mf-text">${t}</div>
+      </div>`).join('')}
+    </div>
+    <div class="mf-footer">
+      <div class="mf-footer-text">Estos son los principios que nos unen.<br><strong>Bienvenido a Valor Agregado.</strong></div>
+      <button class="mf-home-btn" onclick="document.getElementById('pendingMfScreen').remove();document.getElementById('pendingScreen').style.display='flex'">
+        ← Volver
+      </button>
+    </div>`;
+  document.body.appendChild(div);
+}
+
+// ═══ PENDING MANIFIESTO ═══
+function showPendingManif(){
+  // Show app screen with only manifiesto visible, hide others
+  document.getElementById('pendingScreen').style.display='none';
+  document.getElementById('appScreen').style.display='block';
+  // Hide all tabs and bottom nav except manif
+  document.querySelector('.tabs').style.display='none';
+  document.querySelector('.bottom-nav').style.display='none';
+  // Show only manifiesto tab with back button
+  showTab('manifiesto');
+  // Add back-to-pending button
+  const backBtn=document.createElement('button');
+  backBtn.textContent='← Volver';
+  backBtn.style.cssText='position:fixed;top:12px;left:12px;z-index:200;background:rgba(43,74,63,.9);color:#fff;border:none;border-radius:20px;padding:7px 16px;font-family:Outfit,sans-serif;font-size:.8rem;cursor:pointer;';
+  backBtn.onclick=()=>{
+    document.getElementById('appScreen').style.display='none';
+    document.getElementById('pendingScreen').style.display='flex';
+    backBtn.remove();
+    document.querySelector('.tabs').style.display='';
+    document.querySelector('.bottom-nav').style.display='';
+  };
+  document.body.appendChild(backBtn);
 }
 // ═══ UTILS ═══
 function today(){return new Date().toISOString().slice(0,10);}
