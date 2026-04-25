@@ -523,7 +523,7 @@ header.scrolled .logo{font-size:1.25rem;letter-spacing:.06em;}
 .bc-download-btn:hover{background:var(--accent2);}
 [data-theme="dark"] .bc-download-btn{color:#111;}
 
-/* ═══ MANIFESTO ═══ */
+
 #manifestoTab{
   display:none;
   min-height:100vh;
@@ -1290,7 +1290,6 @@ header.scrolled .logo{font-size:1.25rem;letter-spacing:.06em;}
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
       Comunidad
     </div>
-    <div class="tab" id="tabMf" onclick="showTab('manifesto')">📜 Manifiesto</div>
     <div class="tab" id="tabManif" onclick="showTab('manifiesto')">📜 Manifiesto</div>
     <div class="tab" id="tabAdmin" style="display:none" onclick="showTab('admin')">⚙️ Admin</div>
     <div class="tab" id="tabStats" style="display:none" onclick="showTab('stats')">📊 Stats</div>
@@ -1528,18 +1527,6 @@ header.scrolled .logo{font-size:1.25rem;letter-spacing:.06em;}
     </div>
     <button class="save-btn" id="saveBtn" onclick="saveProfile()">Guardar perfil</button>
   </div>
-
-
-  <!-- MANIFIESTO -->
-  <div id="manifestoTab">
-    <div class="mf-hero">
-      <div class="mf-hero-eyebrow">Documento fundacional</div>
-      <div class="mf-hero-title">Manifiesto</div>
-      <div class="mf-hero-subtitle">Los valores que nos definen</div>
-      <div class="mf-hero-community">Valor Agregado</div>
-      <div class="mf-hero-line"></div>
-    </div>
-
     <div class="mf-list" id="mfList">
       <!-- rendered by JS -->
     </div>
@@ -1560,9 +1547,9 @@ header.scrolled .logo{font-size:1.25rem;letter-spacing:.06em;}
   <!-- MANIFIESTO -->
   <div id="manifiestoTab">
     <div class="manif-hero">
-      <div class="manif-eyebrow">Valor Agregado · Comunidad</div>
+      <div class="manif-eyebrow">Documento fundacional · Valor Agregado</div>
       <div class="manif-title">Manifiesto</div>
-      <div class="manif-subtitle">Los principios que nos unen. La razón por la que estamos acá.</div>
+      <div class="manif-subtitle">La cultura e identidad que nos define.<br>Los principios que definen lo que hacemos.</div>
     </div>
 
     <div class="manif-body">
@@ -1658,10 +1645,6 @@ header.scrolled .logo{font-size:1.25rem;letter-spacing:.06em;}
     <div class="nav-item" id="navProf" onclick="showTab('profile')">
       <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       Perfil
-    </div>
-    <div class="nav-item" id="navMf" onclick="showTab('manifesto')">
-      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-      Manifiesto
     </div>
     <div class="nav-item" id="navStats" style="display:none" onclick="showTab('stats')">
       <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
@@ -2427,8 +2410,8 @@ async function saveProfile(){
 function showTab(tab){
   if(tab==='profile') setTimeout(renderProfileCompletion,50);
   if(tab==='stats') setTimeout(renderStats,50);
-  if(tab==='manifesto') setTimeout(renderManifesto,50);
-  ['landing','directory','profile','admin','stats','manifesto'].forEach(t=>{
+  if(tab==='manifiesto') setTimeout(renderManifesto,50);
+  ['landing','directory','profile','admin','stats','manifiesto'].forEach(t=>{
     const el=document.getElementById(t+'Tab');if(el)el.style.display='none';
   });
   document.getElementById(tab+'Tab').style.display='block';
